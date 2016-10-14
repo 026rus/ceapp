@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android = "http://schemas.android.com/apk/res/android"
+	xmlns:tools = "http://schemas.android.com/tools"
+	android:layout_width = "match_parent"
+	android:layout_height = "match_parent"
+	android:orientation="vertical"
+	android:id="@+id/layout_for_out"
+	android:paddingBottom = "@dimen/activity_vertical_margin"
+	android:paddingLeft = "@dimen/activity_horizontal_margin"
+	android:paddingRight = "@dimen/activity_horizontal_margin"
+	android:paddingTop = "@dimen/activity_vertical_margin"
+	tools:context = "com.example.borodin.cecheckinout.OutActivity"
+	android:weightSum = "1">
+
+	<TextView
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:textAppearance = "?android:attr/textAppearanceMedium"
+		android:id = "@+id/out_title"/>
+
+	<ScrollView
+		android:layout_width = "350dp"
+		android:layout_height = "wrap_content"
+		android:id = "@+id/scrollView"
+		android:layout_weight = "0.95">
+
+		<LinearLayout
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"
+			android:orientation="vertical"
+			android:id = "@+id/out_list">
+
+		</LinearLayout>
+	</ScrollView>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:gravity="center"
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content">
+		<Button
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_margin="20dp"
+			android:text = "@string/check_out"
+			android:onClick="onClickOutSend"/>
+		<Button
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_margin="20dp"
+			android:text="Cancel"
+			android:onClick="onClickOutCancel"/>
+	</LinearLayout>
+
+</LinearLayout>
