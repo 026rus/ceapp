@@ -1,6 +1,7 @@
 package com.example.borodin.cecheckinout;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -21,9 +22,11 @@ public class SyncSQLDB extends AsyncTask<String, Integer, String>
 	private final Context That;
 	private ProgressBar progressBar;
 	private OnDataUptaded listener;
+	private SharedPreferences preferences;
 
 	public SyncSQLDB (Context context, ProgressBar b, OnDataUptaded listener)
 	{
+		preferences = context.getSharedPreferences(context.getString(R.string.setings_for_update), Context.MODE_PRIVATE);
 		That = context;
 		progressBar = b;
 		this.listener = listener;
@@ -72,6 +75,7 @@ public class SyncSQLDB extends AsyncTask<String, Integer, String>
 		{
 			try
 			{
+				SharedPreferences.Editor editor = preferences.edit();
 				JSONArray arrProjects = new JSONArray(response);
 				Log.d(TAG, "get " + arrProjects.length() + " projects");
 				phelper = new ProjectSQLiteOpenHelper(That);
@@ -86,6 +90,8 @@ public class SyncSQLDB extends AsyncTask<String, Integer, String>
 					Log.d(TAG, "Project Phone: " + object.get("projectPHONE"));
 					Log.d(TAG, "Project FILE: " + object.get("projectFILES"));
 
+					editor.putString( object.getString("projectNAME"), object.getString("projectTIMEUP"));
+
 					Project p = new Project(object.getInt("projectID"),
 							object.getString("projectNAME"),
 							object.getString("projectEMAIL"),
@@ -95,6 +101,7 @@ public class SyncSQLDB extends AsyncTask<String, Integer, String>
 
 					phelper.addProject(db, p);
 				}
+				editor.commit();
 			} catch (JSONException e)
 			{
 				e.printStackTrace();

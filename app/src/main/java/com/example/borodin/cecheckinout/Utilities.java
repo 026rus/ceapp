@@ -4,24 +4,21 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
-
 import java.util.Calendar;
 import java.util.TimeZone;
-import java.util.jar.Manifest;
 
 /**
  * Created by borodin on 6/10/2016.
  */
 public final class Utilities
 {
+	private static final String TAG = "Utilities_TEST";
 	public static final String newline = "\n";
 
 	public static void print(String tag, String str)
@@ -55,12 +52,14 @@ public final class Utilities
 			context.startActivity(intentout);
 		} catch (ActivityNotFoundException e)
 		{
-			Toast.makeText(context, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, "There are no email clients installed.", Toast.LENGTH_LONG).show();
+			Utilities.print(TAG, "There are no email clients installed.");
 		}
 	}
 
 	public static void sendEmail(Context context, int mod, MessegeInOut mesg, String[] sto)
 	{
+		Utilities.print(TAG, "Sending email coled sendEmail from Utilitis");
 		switch (mod)
 		{
 			case Constants.CHECKIN:
@@ -98,7 +97,7 @@ public final class Utilities
 	public static String getTimeZon()
 	{
 		TimeZone t = TimeZone.getDefault();
-		return "Phone Time stamp " + t.getDisplayName(false, TimeZone.SHORT) + " :";
+		return t.getDisplayName(false, TimeZone.SHORT);
 	}
 
 	public static String getTime()

@@ -39,10 +39,10 @@ public class CheckoutPDF
 {
 	// Storage Permissions
 	private static final int REQUEST_EXTERNAL_STORAGE = 1;
-	private static String[] PERMISSIONS_STORAGE = {
-			Manifest.permission.READ_EXTERNAL_STORAGE,
-			Manifest.permission.WRITE_EXTERNAL_STORAGE
-	};
+	private static String[] PERMISSIONS_STORAGE =   {
+														Manifest.permission.READ_EXTERNAL_STORAGE,
+														Manifest.permission.WRITE_EXTERNAL_STORAGE
+													};
 	private static final String TAG = "CheckoutPDF_TEST";
 	private Context context = null;
 	private Project project = null;
@@ -94,14 +94,46 @@ public class CheckoutPDF
 			title.setAlignment(Element.ALIGN_CENTER);
 			document.add(title);
 
-			fntSize = 13.7f;
-			Paragraph sname = new Paragraph(new Phrase(lineSpacing, massege.getProjesctName(), FontFactory.getFont(FontFactory.HELVETICA_OBLIQUE, fntSize)));
-			sname.setAlignment(Element.ALIGN_RIGHT);
-			document.add(sname);
+			// fntSize = 13.7f;
+			// Paragraph sname = new Paragraph(new Phrase(lineSpacing, massege.getProjesctName(), FontFactory.getFont(FontFactory.HELVETICA_OBLIQUE, fntSize)));
+			// sname.setAlignment(Element.ALIGN_RIGHT);
+			// document.add(sname);
 
-			document.add(new Paragraph("Site / Store Number: " + massege.getSiteStoreNumber()));
-			document.add(new Paragraph("Email : " + project.getEmail()));
-			document.add(new Paragraph("Phone: " + project.getPhone()));
+			PdfPTable tablehader = new PdfPTable(2);
+			tablehader.setSpacingBefore(20);
+			tablehader.setSpacingAfter(40);
+			// tablehader.setWidths(new int[]{5, 5});
+			PdfPCell thcell1, thcell2;
+
+			thcell1 = new PdfPCell(new Phrase("Site / Store Number: " + massege.getSiteStoreNumber()));
+			thcell1.setBorder(Rectangle.NO_BORDER);
+			tablehader.addCell(thcell1);
+
+			thcell2 = new PdfPCell(new Phrase(massege.getProjesctName()));
+			thcell2.setBorder(Rectangle.NO_BORDER);
+			thcell2.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			tablehader.addCell(thcell2);
+
+			thcell1 = new PdfPCell(new Phrase("Email : " + project.getEmail()));
+			thcell1.setBorder(Rectangle.NO_BORDER);
+			tablehader.addCell(thcell1);
+
+			thcell2 = new PdfPCell(new Phrase("Time zone " + Utilities.getTimeZon() ));
+			thcell2.setBorder(Rectangle.NO_BORDER);
+			thcell2.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			tablehader.addCell(thcell2);
+
+			thcell1 = new PdfPCell(new Phrase("Phone: " + project.getPhone()));
+			thcell1.setBorder(Rectangle.NO_BORDER);
+			tablehader.addCell(thcell1);
+
+			thcell2 = new PdfPCell(new Phrase(massege.getTimeOut()));
+			thcell2.setBorder(Rectangle.NO_BORDER);
+			thcell2.setHorizontalAlignment(Element.ALIGN_RIGHT);
+			tablehader.addCell(thcell2);
+			document.add(tablehader);
+
+
 			if (massege != null)
 			{
 				Utilities.print(TAG, "Signarture : " + massege.getSignatur());
@@ -146,7 +178,7 @@ public class CheckoutPDF
 							{
 								correntline += mm;
 								linmeinsel.add(correntline);
-								Utilities.print(TAG, "Auditing new line of text: " + correntline + " arr size: " + linmeinsel.size());
+								Utilities.print(TAG, "Adding new line of text: " + correntline + " arr size: " + linmeinsel.size());
 							}
 						} else
 						{
@@ -257,6 +289,5 @@ public class CheckoutPDF
 				context.getApplicationContext().deleteFile(file.getName());
 			}
 		}
-
 	}
 }

@@ -2,20 +2,15 @@ package com.example.borodin.cecheckinout;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.content.ActivityNotFoundException;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,16 +19,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,6 +41,9 @@ public class CheckInOutActivity extends AppCompatActivity implements OnFileDownl
 	private ProjectSQLiteOpenHelper dbhelper;
 	private ProgressBar progressBar;
 	private ArrayList<String> allfiles = null;
+	private Switch switchmanagercopy;
+	private EditText managerEmail;
+	private SharedPreferences preferences;
 
 	// Storage Permissions
 	private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -62,16 +59,76 @@ public class CheckInOutActivity extends AppCompatActivity implements OnFileDownl
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_check_in_out);
+		Utilities.print(TAG, "On Create called !!!");
 		initelaze();
 		getherInfo();
 	}
 
+	// checing if we need to send copy to manager
+	private void checkformanageremail()
+	{
+		if(switchmanagercopy.isChecked())
+		{
+			Utilities.print(TAG, "switch is On!");
+			if(managerEmail != null) managerEmail.setVisibility(View.VISIBLE);
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.putString(getString(R.string.TheManagerEmail), managerEmail.getText().toString());
+			editor.commit();
+
+		}
+		else
+		{
+			Utilities.print(TAG, "switch is Off!");
+			if(managerEmail != null) managerEmail.setVisibility(View.INVISIBLE);
+		}
+		Utilities.print(TAG, "coling savecheckemailweitch()");
+		savecheckemailswitch();
+	}
+
+	// saving corent status of the email manager switch
+	private void savecheckemailswitch()
+	{
+		if(switchmanagercopy != null )
+		{
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.putBoolean(getString(R.string.manageremailswitchsave), switchmanagercopy.isChecked());
+			if (switchmanagercopy.isChecked())
+			{
+				editor.putString(getString(R.string.TheManagerEmail), managerEmail.getText().toString());
+			}
+			editor.commit();
+		}
+	}
 	private void initelaze()
 	{
+		Utilities.print(TAG, "Init all UI ");
+		preferences = getSharedPreferences(getString(R.string.setings_for_update), Context.MODE_PRIVATE);
 		progressBar = (ProgressBar) findViewById(R.id.checkInOutprogressBar);
 
 		String site = getIntent().getExtras().getString("SITENAME");
 		correntProject = (Project) getIntent().getParcelableExtra("project");
+
+		switchmanagercopy = (Switch) findViewById(R.id.switchmanagercopy);
+		managerEmail = (EditText) findViewById(R.id.managerEmailCopy);
+
+		if(switchmanagercopy != null )
+		{
+			Utilities.print(TAG, "Seting the defolt options for check In Out Activity ");
+			switchmanagercopy.setChecked(preferences.getBoolean(getString(R.string.manageremailswitchsave), false));
+			managerEmail.setText(preferences.getString(getString(R.string.TheManagerEmail), "NULL"));
+		}
+		switchmanagercopy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			{
+				checkformanageremail();
+			}
+		});
+
+
+		checkformanageremail();
+
 		Utilities.print(TAG, "THE ID: " + correntProject.getId());
 		Utilities.print(TAG, "THE ID: " + correntProject.getName());
 		Utilities.print(TAG, "\t\t\t Site: \t\t" + site);
@@ -126,12 +183,9 @@ public class CheckInOutActivity extends AppCompatActivity implements OnFileDownl
 		Intent intent = new Intent(this, OutActivity.class);
 		intent.putExtra("project", correntProject);
 		intent.putExtra("message", messege);
+		intent.putExtra("iscmc", switchmanagercopy.isChecked());
+		intent.putExtra("managerEmail", managerEmail.getText().toString());
 		startActivity(intent);
-
-		// CheckoutPDF mypdf = new CheckoutPDF(this, correntProject);
-		// mypdf.setTv1((EditText)findViewById(R.id.projectNames));
-		// mypdf.testpdf2();
-		// openmanfile(mypdf.getFilepath());
 	}
 
 	@Override

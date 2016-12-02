@@ -1,7 +1,6 @@
 package com.example.borodin.cecheckinout;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,14 +11,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
-import android.print.pdf.PrintedPdfDocument;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.Space;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -29,17 +26,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
-import static android.app.Activity.RESULT_OK;
 
 public class OutActivity extends AppCompatActivity
 {
@@ -51,6 +43,9 @@ public class OutActivity extends AppCompatActivity
 	private SQLiteDatabase db;
 	private ProjectSQLiteOpenHelper dbhelper;
 	private ImageView tempImageView = null;
+	private String managerEmail = null;
+	private Boolean isneedCopy = false;
+
 	// Storage Permissions
 	private static final int REQUEST_EXTERNAL_STORAGE = 1;
 	private static String[] PERMISSIONS_STORAGE = {
@@ -72,6 +67,10 @@ public class OutActivity extends AppCompatActivity
 	{
 		correntProject = (Project) getIntent().getParcelableExtra("project");
 		correntMessege = (MessegeInOut) getIntent().getParcelableExtra("message");
+
+		isneedCopy = getIntent().getBooleanExtra("iscmc", false);
+		if (isneedCopy)managerEmail = getIntent().getStringExtra("managerEmail");
+
 		correntMessege.setProjesctName(correntProject.getName());
 		dbhelper = new ProjectSQLiteOpenHelper(this);
 		db = dbhelper.getReadableDatabase();
@@ -197,7 +196,7 @@ public class OutActivity extends AppCompatActivity
 		builder.show();
 	}
 
-	//// TODO: 9/19/2016 figure out nmaes for photos and hpw to send it ot email ! need path to ful img 
+	//// TODO: 9/19/2016 figure out nmaes for photos and hpw to send it ot email ! need path to ful img
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
@@ -347,19 +346,21 @@ public class OutActivity extends AppCompatActivity
 					{
 						sendmassege.append(" : " + ((EditText) inview).getText().toString() + Utilities.newline);
 						String str = (" : " + ((EditText) inview).getText().toString() + Utilities.newline);
-						correntMessege.addChecklist(str, MessegeInOut.ISTEXTFILD );
+						correntMessege.addChecklist(str, MessegeInOut.ISTEXT );
 					} else if (inview instanceof TextView)
 					{
 						sendmassege.append(((TextView) inview).getText().toString());
 						String str = ((TextView) inview).getText().toString();
-						correntMessege.addChecklist(str, MessegeInOut.ISCHEKET );
+						correntMessege.addChecklist(str, MessegeInOut.ISTEXTFILD );
 					}
 				}
 			}
 		}
 		// TODO: 8/29/2016  Need to move this thing to beter plse.
 		sendmassege.append(Utilities.getTimeZon());
-		sendmassege.append(Utilities.getTime());
+		String timenow = Utilities.getTime();
+		sendmassege.append(": " + timenow);
+		correntMessege.setTimeOut(timenow);
 		Utilities.print(TAG, sendmassege.toString());
 		correntMessege.setOutMasseg(sendmassege.toString());
 
@@ -372,22 +373,36 @@ public class OutActivity extends AppCompatActivity
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
-						//Intent intent = new Intent(OutActivity.this, MainActivity.class);
-						//startActivity(intent);
-						//Utilities.sendEmail(OutActivity.this, correntMessege, new String[]{correntProject.getEmail()}, screensig);
+						Utilities.print(TAG, "Sending email");
+						Uri pdfUri =  makePDF(correntMessege);
+						Utilities.print(TAG, "########################################################");
+						Utilities.print(TAG, "after pdf");
 
-						makePDF(correntMessege);
+						// sending the pdf by email !
+						if (isneedCopy && managerEmail != null)
+						{
+							Utilities.sendEmail(OutActivity.this, correntMessege, new String[]{correntProject.getEmail(), managerEmail}, pdfUri);
+							Utilities.print(TAG, "Sending email to: " + correntProject.getEmail() + " and "+ managerEmail);
+						}
+						else
+							Utilities.sendEmail(OutActivity.this, correntMessege, new String[]{correntProject.getEmail()}, pdfUri);
+						Intent intent = new Intent(OutActivity.this, MainActivity.class);
+						startActivity(intent);
+						// TODO: 11/7/2016  need to send this pdf via email to the project mail box.
+						// not sure if it still working any more !
+						// openmanfile(pdfUri.getPath());
 					}
 				});
 		alert.show();
 	}
 
-	public void makePDF(MessegeInOut strmeseg)
+	public Uri makePDF(MessegeInOut strmeseg)
 	{
 		CheckoutPDF mypdf = new CheckoutPDF(this, correntProject);
 		mypdf.setMassege(strmeseg);
 		mypdf.testpdf2();
-		openmanfile(mypdf.getFilepath());
+		return Uri.fromFile(new File(mypdf.getFilepath()));
+
 	}
 
 	private void openmanfile(String filepath)

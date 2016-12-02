@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,19 +28,48 @@ public class MainActivity extends AppCompatActivity
 	private Project p = null;
 	private ProgressBar progressBar;
 	private DataCopliteList listener = new DataCopliteList();
+	private Menu main_menu;
+
+	private boolean isUptodate;
+	private checkDBForUpdates chekForUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-		//todo  * check for updates !
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+		isUptodate = false;
 		setVew();
 		setlisteners();
 
 		if (isFirstTime()) firstTimeInit();
     }
+
+	@Override
+	protected void onResume()
+	{
+		//todo  * check for updates !
+		// propose update if the local data base is older then one on the server
+		// SELECT table_name, auto_increment, update_time, check_time FROM information_schema.tables WHERE  table_schema = 'projects'
+		isDBcorent();
+		super.onResume();
+	}
+
+	private void isDBcorent()
+	{
+		// need to get table_names form server DB
+		// then if ( table_names.size != oldSize ) return false;
+		// then for each table in table_name
+		// 			if table.time_update != table[i].oldTime return false;
+		Utilities.print(TAG, "Starting isDBcorent ");
+
+		if(Utilities.isNetworkAvailable(this))
+		{
+			chekForUp = new checkDBForUpdates(this, progressBar, listener);
+			chekForUp.execute(getString(R.string.api_update) );
+		}
+	}
 
 	private boolean isFirstTime()
 	{
@@ -63,6 +91,7 @@ public class MainActivity extends AppCompatActivity
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		getMenuInflater().inflate(R.menu.menu_main, menu);
+		main_menu = menu;
 		return true;
 	}
 
@@ -73,8 +102,10 @@ public class MainActivity extends AppCompatActivity
 		switch (id)
 		{
 			case R.id.refresh:
-				Log.d(TAG, "Syncing data manualy !");
+				// update db from server
+				Log.d(TAG, "Syncing data manually !");
 				syncSQLiteMySQLDB();
+				item.setIcon(getResources().getDrawable(R.drawable.ic_action_refresh));
 				return true;
 			case R.id.download_man:
 				// GpsLocator locator = new GpsLocator();
@@ -86,10 +117,6 @@ public class MainActivity extends AppCompatActivity
 				return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	private void test()
-	{
 	}
 
 	private void startSetings()
@@ -226,6 +253,15 @@ public class MainActivity extends AppCompatActivity
 		public void dataUpToDate()
 		{
 			updateProgects();
+			isDBcorent();
+		}
+
+		@Override
+		public void checkFinished(boolean isUp)
+		{
+			if (!isUp) main_menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_action_refresh_red));
+			else main_menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_action_refresh));
+			isUptodate  = chekForUp.isuptodate;
 		}
 	}
 }

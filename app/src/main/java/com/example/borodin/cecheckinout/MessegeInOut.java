@@ -25,6 +25,7 @@ public class MessegeInOut implements Parcelable
 	private ArrayList<Integer> ischecked;
 	private ArrayList<String> filelist;
 	private String signatur;
+	private String TimeOut;
 
 	public MessegeInOut()
 	{
@@ -38,6 +39,7 @@ public class MessegeInOut implements Parcelable
 		ischecked = null;
 		filelist = null;
 		signatur = null;
+		TimeOut = null;
 	}
 
 	protected MessegeInOut(Parcel in)
@@ -53,6 +55,7 @@ public class MessegeInOut implements Parcelable
 		ischecked = in.readArrayList(Boolean.class.getClassLoader());
 		filelist = in.readArrayList(String.class.getClassLoader());
 		signatur = in.readString();
+		TimeOut = in.readString();
 	}
 
 	public static final Creator<MessegeInOut> CREATOR = new Creator<MessegeInOut>()
@@ -90,6 +93,7 @@ public class MessegeInOut implements Parcelable
 		dest.writeList(ischecked);
 		dest.writeList(filelist);
 		dest.writeString(signatur);
+		dest.writeString(TimeOut);
 	}
 	public void addFile(String str)
 	{
@@ -248,5 +252,15 @@ public class MessegeInOut implements Parcelable
 		retval += Utilities.getTime();
 		Utilities.print("TEST", retval);
 		return retval;
+	}
+
+	public String getTimeOut()
+	{
+		return TimeOut;
+	}
+
+	public void setTimeOut(String timeOut)
+	{
+		TimeOut = timeOut;
 	}
 }

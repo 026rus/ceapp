@@ -3,6 +3,7 @@
 	<string name = "api_getprojects">http://195.154.163.58/_api/hptest/getprojects.php</string>
 	<string name = "api_getallquestions">http://195.154.163.58/_api/hptest/getallquestions.php</string>
 	<string name = "api_getfiles">http://195.154.163.58/_api/hptest/getfiles.php</string>
+	<string name = "api_update">http://195.154.163.58/_api/hptest/getupdate.php</string>
 	<string name = "man_server_loc">http://195.154.163.58/_api/pfiles/</string>
 	<string name = "senddatatoserver">http://195.154.163.58/_api/hptest/addrecords.php</string>
 	<string name = "title_activity_settings">Settings</string>
@@ -73,4 +74,8 @@
 	<string name = "set">This one</string>
 	<string name = "choose_file_to_download">Choose File to Download</string>
 	<string name = "check_out">Check OUT</string>
+	<string name = "dboutdatedmeseg"> "This project(s) was updated: " </string>
+	<string name = "setings_for_update">sheredprefforupdatetimestemp</string>
+	<string name = "manageremailswitchsave">MANAGEREMAIL</string>
+	<string name = "TheManagerEmail">THEMANAGEREMAIL</string>
 </resources>

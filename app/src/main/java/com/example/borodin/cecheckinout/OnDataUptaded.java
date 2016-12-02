@@ -6,4 +6,5 @@ package com.example.borodin.cecheckinout;
 public interface OnDataUptaded
 {
 	void dataUpToDate();
+	void checkFinished(boolean isUptodate);
 }
