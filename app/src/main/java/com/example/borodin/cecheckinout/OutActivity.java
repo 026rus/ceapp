@@ -298,7 +298,6 @@ public class OutActivity extends AppCompatActivity
 
 						bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
 								bitmapOptions);
-						correntMessege.addFile(f.getAbsolutePath());
 
 						if (tempImageView != null)
 						{
@@ -312,7 +311,8 @@ public class OutActivity extends AppCompatActivity
 								+ "Phoenix" + File.separator + "default";
 						f.delete();
 						OutputStream outFile = null;
-						File file = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
+						String tempphotofilename = String.valueOf(System.currentTimeMillis()) + ".jpg";
+						File file = new File(path, tempphotofilename);
 						try
 						{
 							outFile = new FileOutputStream(file);
@@ -329,6 +329,8 @@ public class OutActivity extends AppCompatActivity
 						{
 							e.printStackTrace();
 						}
+						Utilities.print(TAG, " Taking Photo with name: " + file.getPath() );
+						correntMessege.addFile(path+"/"+tempphotofilename);
 					} catch (Exception e)
 					{
 						e.printStackTrace();
@@ -343,7 +345,7 @@ public class OutActivity extends AppCompatActivity
 					String picturePath = c.getString(columnIndex);
 					c.close();
 					Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-					Utilities.print(TAG, "path of image from gallery......******************........." + picturePath + "");
+					Utilities.print(TAG, "path of image from gallery: " + picturePath + "");
 					correntMessege.addFile(picturePath);
 					if (tempImageView != null)
 					{

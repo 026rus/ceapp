@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.pdf.PdfDocument;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 
@@ -76,7 +77,6 @@ public class CheckoutPDF
 		Document document = new Document();
 		filepath = Environment.getExternalStorageDirectory().getPath() + "/chektemp.pdf";
 		deletefiel(filepath);
-		// filepath = context.getExternalCacheDir() + "/chektemp.pdf";
 		try
 		{
 			int permission = ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -94,15 +94,10 @@ public class CheckoutPDF
 			title.setAlignment(Element.ALIGN_CENTER);
 			document.add(title);
 
-			// fntSize = 13.7f;
-			// Paragraph sname = new Paragraph(new Phrase(lineSpacing, massege.getProjesctName(), FontFactory.getFont(FontFactory.HELVETICA_OBLIQUE, fntSize)));
-			// sname.setAlignment(Element.ALIGN_RIGHT);
-			// document.add(sname);
 
 			PdfPTable tablehader = new PdfPTable(2);
 			tablehader.setSpacingBefore(20);
 			tablehader.setSpacingAfter(40);
-			// tablehader.setWidths(new int[]{5, 5});
 			PdfPCell thcell1, thcell2;
 
 			thcell1 = new PdfPCell(new Phrase("Site / Store Number: " + massege.getSiteStoreNumber()));
@@ -178,11 +173,7 @@ public class CheckoutPDF
 							{
 								correntline += mm;
 								linmeinsel.add(correntline);
-								Utilities.print(TAG, "Adding new line of text: " + correntline + " arr size: " + linmeinsel.size());
 							}
-						} else
-						{
-							Utilities.print(TAG, "\t\tThe Check List Item is NULL");
 						}
 					}
 					// add first table
@@ -193,9 +184,6 @@ public class CheckoutPDF
 					table.setSpacingAfter(51);
 					table.setWidthPercentage(100);
 
-					// second tables for text enteris
-					// table.setWidths(new int[]{1, 3});
-					Utilities.print(TAG, "just before Array loop! " + linmeinsel.size());
 					for (String lstr : linmeinsel)
 					{
 						cell1 = new PdfPCell(new Phrase(lstr));
@@ -203,7 +191,6 @@ public class CheckoutPDF
 						table.addCell(cell1);
 						Utilities.print(TAG, "hte box : " + lstr);
 					}
-					Utilities.print(TAG, "just after Array loop!");
 					// add second table
 					document.add(table);
 				}
@@ -212,6 +199,27 @@ public class CheckoutPDF
 			Image img = resizeBitmap(massege.getSignatur(), 100, 100, true);
 			document.add(img);
 
+			ArrayList<String> photofiles = massege.getFilelist();
+
+			Utilities.print(TAG, "The number of files is: " + photofiles.size());
+			if (photofiles.isEmpty()) Utilities.print(TAG, "photofile is empty !");
+			else  Utilities.print(TAG, "photfile is not empty!");
+			for (int i=0; i< photofiles.size(); i++)
+			{
+				Utilities.print(TAG, "entere for file # " + i + photofiles.get(i));
+			}
+
+			// TODO: 12/2/2016 fixe formating of the images puting in to the pdf
+			if (!photofiles.isEmpty())
+			{
+				Utilities.print(TAG, "Additing a photo");
+				for (String photo: photofiles)
+				{
+					Utilities.print(TAG, "Additing photo: " + photo);
+					Image tempphotoinmg = resizeBitmap(photo, 200, 200, false);
+					document.add(tempphotoinmg);
+				}
+			}
 			document.close();
 			clear();
 		} catch (DocumentException e)
@@ -277,17 +285,9 @@ public class CheckoutPDF
 		file.delete();
 		if (file.exists())
 		{
-			try
-			{
-				file.getCanonicalFile().delete();
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-			if (file.exists())
-			{
-				context.getApplicationContext().deleteFile(file.getName());
-			}
+			try 				  { file.getCanonicalFile().delete(); }
+			catch (IOException e) { e.printStackTrace(); }
+			if (file.exists()) 	  { context.getApplicationContext().deleteFile(file.getName()); }
 		}
 	}
 }

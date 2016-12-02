@@ -79,7 +79,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.2"
-        sha1="2ae33c5c56f64a7b4828510564a66fb6a3ff3fe9">
+        sha1="6014220e0c6df6a224c42328c9f05b1dfbc2ef69">
         <dex dex="C:\Users\borodin\Dev\Android\CECheckInOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_3d92613c444acbb9d929ca0b53a2cc3c49b00144\classes.dex" />
     </item>
     <item
@@ -97,7 +97,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.2"
-        sha1="2c649f23350a194a5ea8e2cc12359dc22c406118">
+        sha1="c08ad7d59eec1c86f6ce70e4d1f9c55abe51ec12">
         <dex dex="C:\Users\borodin\Dev\Android\CECheckInOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_9a6fb78cfc7e801fd79bb621d804815157be79c4\classes.dex" />
     </item>
 
