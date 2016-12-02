@@ -397,7 +397,7 @@ public class OutActivity extends AppCompatActivity
 		sendmassege.append("Site: " + correntMessege.getSiteStoreNumber() + Utilities.newline);
 
 		int childcount = outLayout.getChildCount();
-		for (int i = 0; i < childcount; i++)
+		for (int i = 0; i < childcount - 1; i++)
 		{
 			View view = outLayout.getChildAt(i);
 			if (view instanceof CheckBox)
