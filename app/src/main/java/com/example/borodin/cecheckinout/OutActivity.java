@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,11 +20,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
@@ -43,8 +47,9 @@ public class OutActivity extends AppCompatActivity
 	private SQLiteDatabase db;
 	private ProjectSQLiteOpenHelper dbhelper;
 	private ImageView tempImageView = null;
-	private String managerEmail = null;
-	private Boolean isneedCopy = false;
+	private EditText managerEmail = null;
+	private Switch switchmanagercopy = null;
+	private SharedPreferences preferences;
 
 	// Storage Permissions
 	private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -63,13 +68,69 @@ public class OutActivity extends AppCompatActivity
 		makeList();
 	}
 
+	// checing if we need to send copy to manager
+	private void checkformanageremail()
+	{
+		if(switchmanagercopy.isChecked())
+		{
+			Utilities.print(TAG, "switch is On!");
+			if(managerEmail != null) managerEmail.setVisibility(View.VISIBLE);
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.putString(getString(R.string.TheManagerEmail), managerEmail.getText().toString());
+			editor.commit();
+
+		}
+		else
+		{
+			Utilities.print(TAG, "switch is Off!");
+			if(managerEmail != null) managerEmail.setVisibility(View.INVISIBLE);
+		}
+		Utilities.print(TAG, "coling savecheckemailweitch()");
+		savecheckemailswitch();
+	}
+
+	// saving corent status of the email manager switch
+	private void savecheckemailswitch()
+	{
+		if(switchmanagercopy != null )
+		{
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.putBoolean(getString(R.string.manageremailswitchsave), switchmanagercopy.isChecked());
+			if (switchmanagercopy.isChecked())
+			{
+				editor.putString(getString(R.string.TheManagerEmail), managerEmail.getText().toString());
+			}
+			editor.commit();
+		}
+	}
+
 	private void initialase()
 	{
+		preferences = getSharedPreferences(getString(R.string.setings_for_update), this.MODE_PRIVATE);
 		correntProject = (Project) getIntent().getParcelableExtra("project");
 		correntMessege = (MessegeInOut) getIntent().getParcelableExtra("message");
 
-		isneedCopy = getIntent().getBooleanExtra("iscmc", false);
-		if (isneedCopy)managerEmail = getIntent().getStringExtra("managerEmail");
+		switchmanagercopy = (Switch) findViewById(R.id.switchmanagercopy);
+		managerEmail = (EditText) findViewById(R.id.managerEmailCopy);
+
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+		if(switchmanagercopy != null )
+		{
+			Utilities.print(TAG, "Seting the defolt options for check In Out Activity ");
+			switchmanagercopy.setChecked(preferences.getBoolean(getString(R.string.manageremailswitchsave), false));
+		}
+		switchmanagercopy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+			{
+				checkformanageremail();
+			}
+		});
+
+
+		checkformanageremail();
 
 		correntMessege.setProjesctName(correntProject.getName());
 		dbhelper = new ProjectSQLiteOpenHelper(this);
@@ -379,13 +440,16 @@ public class OutActivity extends AppCompatActivity
 						Utilities.print(TAG, "after pdf");
 
 						// sending the pdf by email !
-						if (isneedCopy && managerEmail != null)
+						if (managerEmail != null)
 						{
-							Utilities.sendEmail(OutActivity.this, correntMessege, new String[]{correntProject.getEmail(), managerEmail}, pdfUri);
-							Utilities.print(TAG, "Sending email to: " + correntProject.getEmail() + " and "+ managerEmail);
+							Utilities.sendEmail(OutActivity.this, correntMessege, new String[]{correntProject.getEmail(), managerEmail.getText().toString()}, pdfUri);
+							Utilities.print(TAG, "Sending email to: " + correntProject.getEmail() + " and "+ managerEmail.getText().toString());
 						}
 						else
+						{
 							Utilities.sendEmail(OutActivity.this, correntMessege, new String[]{correntProject.getEmail()}, pdfUri);
+							Utilities.print(TAG, "Sending email to: " + correntProject.getEmail() + " and no one else !! :( ");
+						}
 						Intent intent = new Intent(OutActivity.this, MainActivity.class);
 						startActivity(intent);
 						// TODO: 11/7/2016  need to send this pdf via email to the project mail box.

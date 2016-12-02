@@ -101,30 +101,4 @@
 		android:layout_toLeftOf = "@+id/btn_ChekOut"
 		android:layout_toStartOf = "@+id/btn_ChekOut"/>
 
-	<Switch
-		android:text = "Copy for manager"
-		android:layout_width = "wrap_content"
-		android:layout_height = "wrap_content"
-		android:id = "@+id/switchmanagercopy"
-		android:layout_above = "@+id/managerEmailCopy"
-		android:layout_alignParentRight = "true"
-		android:layout_alignParentEnd = "true"
-		android:layout_marginRight = "16dp"
-		android:layout_marginEnd = "16dp"
-		android:layout_marginBottom = "22dp"/>
-
-	<EditText
-		android:layout_width = "wrap_content"
-		android:layout_height = "wrap_content"
-		android:inputType = "textEmailAddress"
-		android:ems = "10"
-		android:layout_marginBottom = "25dp"
-		android:id = "@+id/managerEmailCopy"
-		android:layout_alignParentBottom = "true"
-		android:layout_alignParentRight = "true"
-		android:layout_alignParentEnd = "true"
-		android:hint="Enter Manager Email for report copy"
-		android:layout_alignLeft = "@+id/goback"
-		android:layout_alignStart = "@+id/goback"/>
-
 </RelativeLayout>
