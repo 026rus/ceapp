@@ -75,10 +75,6 @@ public class OutActivity extends AppCompatActivity
 		{
 			Utilities.print(TAG, "switch is On!");
 			if(managerEmail != null) managerEmail.setVisibility(View.VISIBLE);
-			SharedPreferences.Editor editor = preferences.edit();
-			editor.putString(getString(R.string.TheManagerEmail), managerEmail.getText().toString());
-			editor.commit();
-
 		}
 		else
 		{
@@ -98,6 +94,7 @@ public class OutActivity extends AppCompatActivity
 			editor.putBoolean(getString(R.string.manageremailswitchsave), switchmanagercopy.isChecked());
 			if (switchmanagercopy.isChecked())
 			{
+				Utilities.print(TAG, "Saving " + managerEmail.getText().toString() + " for next time");
 				editor.putString(getString(R.string.TheManagerEmail), managerEmail.getText().toString());
 			}
 			editor.commit();
@@ -115,20 +112,21 @@ public class OutActivity extends AppCompatActivity
 
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-		if(switchmanagercopy != null )
+		if(switchmanagercopy != null && managerEmail != null)
 		{
 			Utilities.print(TAG, "Seting the defolt options for check In Out Activity ");
 			switchmanagercopy.setChecked(preferences.getBoolean(getString(R.string.manageremailswitchsave), false));
-		}
-		switchmanagercopy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-		{
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-			{
-				checkformanageremail();
-			}
-		});
+			managerEmail.setText(preferences.getString(getString(R.string.TheManagerEmail), "Sorry nothing there"));
 
+			switchmanagercopy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+			{
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+				{
+					checkformanageremail();
+				}
+			});
+		}
 
 		checkformanageremail();
 
@@ -345,6 +343,13 @@ public class OutActivity extends AppCompatActivity
 					break;
 			}
 		}
+	}
+
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		savecheckemailswitch();
 	}
 
 	public void onClickOutSend(View v)
