@@ -48,6 +48,7 @@ public class OutActivity extends AppCompatActivity
 	private ProjectSQLiteOpenHelper dbhelper;
 	private ImageView tempImageView = null;
 	private EditText managerEmail = null;
+	private EditText managerName = null;
 	private Switch switchmanagercopy = null;
 	private SharedPreferences preferences;
 
@@ -202,6 +203,15 @@ public class OutActivity extends AppCompatActivity
 					outLayout.addView(ll);
 				}
 			}
+			TextView temptext = new TextView(this);
+			managerName = new EditText(this);
+			managerName.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT));
+			LinearLayout templl = new LinearLayout(this);
+			temptext.setText("Manager Name: ");
+			templl.addView(temptext);
+			templl.addView(managerName);
+			outLayout.addView(templl);
+
 		} else
 			Toast.makeText(this, "Problem with Questions Sorry ", Toast.LENGTH_SHORT).show();
 	}
@@ -355,6 +365,7 @@ public class OutActivity extends AppCompatActivity
 	public void onClickOutSend(View v)
 	{
 		Intent intent = new Intent(this, SignatureActivity.class);
+		intent.putExtra(getString(R.string.TheManagerName), managerName.getText().toString());
 		startActivityForResult(intent, 0);
 	}
 

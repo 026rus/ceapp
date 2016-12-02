@@ -105,10 +105,13 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/OutActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/OutActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/SignatureActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/SignatureActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
     </list>
     <ignored path="CECheckInOut.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -171,15 +174,30 @@
       <file leaf-file-name="OutActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/OutActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="351" column="30" selection-start-line="351" selection-start-column="30" selection-end-line="351" selection-end-column="30" />
+            <state relative-caret-position="506">
+              <caret line="367" column="91" selection-start-line="367" selection-start-column="91" selection-end-line="367" selection-end-column="91" />
               <folding>
-                <element signature="e#2827#2869#0" expanded="true" />
-                <element signature="e#3232#3270#0" expanded="true" />
-                <element signature="e#3858#3900#0" expanded="true" />
-                <element signature="e#3957#3992#0" expanded="true" />
-                <element signature="e#4068#4256#0" expanded="true" />
-                <element signature="e#4255#4256#0" expanded="true" />
+                <element signature="e#2865#2907#0" expanded="true" />
+                <element signature="e#3097#3132#0" expanded="true" />
+                <element signature="e#3270#3308#0" expanded="true" />
+                <element signature="e#3896#3938#0" expanded="true" />
+                <element signature="e#3995#4030#0" expanded="true" />
+                <element signature="e#4106#4294#0" expanded="true" />
+                <element signature="e#4293#4294#0" expanded="true" />
+                <element signature="e#12133#12167#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SignatureActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/SignatureActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="594">
+              <caret line="137" column="38" selection-start-line="137" selection-start-column="38" selection-end-line="137" selection-end-column="38" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1290#1324#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1815,7 +1833,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/site_chooser_dialog.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/file_chooser_dialog.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/SignatureActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/SyncSQLDB.java" />
@@ -1831,6 +1848,7 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_out.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_check_in_out.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/CheckInOutActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/SignatureActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/OutActivity.java" />
       </list>
     </option>
@@ -2411,7 +2429,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-12" y="-12" width="1944" height="1184" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20469083" sideWeight="0.5051395" order="3" side_tool="true" content_ui="tabs" />
@@ -2575,13 +2593,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/SignatureActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="94" column="58" selection-start-line="94" selection-start-column="58" selection-end-line="94" selection-end-column="58" />
         </state>
       </provider>
     </entry>
@@ -2892,17 +2903,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/SignatureActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="137" column="38" selection-start-line="137" selection-start-column="38" selection-end-line="137" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1290#1324#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/OutActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="351" column="30" selection-start-line="351" selection-start-column="30" selection-end-line="351" selection-end-column="30" />
+        <state relative-caret-position="506">
+          <caret line="367" column="91" selection-start-line="367" selection-start-column="91" selection-end-line="367" selection-end-column="91" />
           <folding>
-            <element signature="e#2827#2869#0" expanded="true" />
-            <element signature="e#3232#3270#0" expanded="true" />
-            <element signature="e#3858#3900#0" expanded="true" />
-            <element signature="e#3957#3992#0" expanded="true" />
-            <element signature="e#4068#4256#0" expanded="true" />
-            <element signature="e#4255#4256#0" expanded="true" />
+            <element signature="e#2865#2907#0" expanded="true" />
+            <element signature="e#3097#3132#0" expanded="true" />
+            <element signature="e#3270#3308#0" expanded="true" />
+            <element signature="e#3896#3938#0" expanded="true" />
+            <element signature="e#3995#4030#0" expanded="true" />
+            <element signature="e#4106#4294#0" expanded="true" />
+            <element signature="e#4293#4294#0" expanded="true" />
+            <element signature="e#12133#12167#0" expanded="true" />
           </folding>
         </state>
       </provider>

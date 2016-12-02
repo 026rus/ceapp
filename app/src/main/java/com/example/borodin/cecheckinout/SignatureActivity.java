@@ -24,6 +24,7 @@ public class SignatureActivity extends Activity
 	private Paint paint;
 	private LinearLayout mContent;
 	private Button clear, save;
+	private String managerName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -41,6 +42,8 @@ public class SignatureActivity extends Activity
 
 		save.setOnClickListener(onButtonClick);
 		clear.setOnClickListener(onButtonClick);
+
+		managerName = getIntent().getExtras().getString(getString(R.string.TheManagerName));
 	}
 
 	Button.OnClickListener onButtonClick = new Button.OnClickListener()
@@ -62,6 +65,7 @@ public class SignatureActivity extends Activity
 	public class signature extends View
 	{
 		static final float STROKE_WIDTH = 10f;
+		static final float WRITE_WIDTH = 2f;
 		static final float HALF_STROKE_WIDTH = STROKE_WIDTH / 2;
 		Paint paint = new Paint();
 		Path path = new Path();
@@ -73,11 +77,25 @@ public class SignatureActivity extends Activity
 		public signature(Context context)
 		{
 			super(context);
+			setfordraw();
+		}
+
+		private void setfordraw()
+		{
 			paint.setAntiAlias(true);
 			paint.setColor(Color.BLACK);
 			paint.setStyle(Paint.Style.STROKE);
 			paint.setStrokeJoin(Paint.Join.ROUND);
 			paint.setStrokeWidth(STROKE_WIDTH);
+		}
+
+		private void setforwrit()
+		{
+			paint.setAntiAlias(true);
+			paint.setColor(Color.BLACK);
+			paint.setStyle(Paint.Style.FILL);
+			paint.setStrokeJoin(Paint.Join.ROUND);
+			paint.setStrokeWidth(WRITE_WIDTH);
 		}
 
 		public void clear()
@@ -111,8 +129,19 @@ public class SignatureActivity extends Activity
 		protected void onDraw(Canvas canvas)
 		{
 			// TODO Auto-generated method stub
+			setforwrit();
+			canvas.save();
+			int x = 350,
+				y = 550;
+			canvas.rotate((float)90, x, y);
+			paint.setTextSize(90);
+			canvas.drawText(managerName, x, y, paint);
+			canvas.restore();
+			setfordraw();
+			// draw the cross
 			canvas.drawLine(500, 300, 700, 500, paint);
 			canvas.drawLine(700, 300, 500, 500, paint);
+			// draw the line for signature
 			canvas.drawLine(450, 250, 450, 1800, paint);
 			canvas.drawPath(path, paint);
 		}

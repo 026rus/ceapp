@@ -78,4 +78,5 @@
 	<string name = "setings_for_update">sheredprefforupdatetimestemp</string>
 	<string name = "manageremailswitchsave">MANAGEREMAIL</string>
 	<string name = "TheManagerEmail">THEMANAGEREMAIL</string>
+	<string name = "TheManagerName">MANAGERNAME</string>
 </resources>
