@@ -23,6 +23,7 @@ public final class Utilities
 
 	public static void print(String tag, String str)
 	{
+		// uncoment befor testing app
 		Log.d(tag, str);
 	}
 
@@ -40,6 +41,7 @@ public final class Utilities
 
 	public static void sendEmail(Context context, MessegeInOut mesg, String[] sto, Uri signature)
 	{
+		Utilities.print(TAG, "Sending Email at 44 ");
 
 		Intent intentout = new Intent(Intent.ACTION_SEND);
 		intentout.setType("image/png");
@@ -50,6 +52,7 @@ public final class Utilities
 		try
 		{
 			context.startActivity(intentout);
+			Utilities.print(TAG, "Email was sended sucsesefuly !");
 		} catch (ActivityNotFoundException e)
 		{
 			Toast.makeText(context, "There are no email clients installed.", Toast.LENGTH_LONG).show();
@@ -71,6 +74,7 @@ public final class Utilities
 				intent.putExtra(Intent.EXTRA_TEXT, sedMessage);
 				try
 				{
+
 					context.startActivity(intent);
 				} catch (ActivityNotFoundException e)
 				{

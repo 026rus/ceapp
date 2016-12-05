@@ -3,12 +3,14 @@ package com.example.borodin.cecheckinout;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 
@@ -200,28 +202,27 @@ public class CheckoutPDF
 			document.add(img);
 
 			ArrayList<String> photofiles = massege.getFilelist();
-
-			Utilities.print(TAG, "The number of files is: " + photofiles.size());
-			if (photofiles.isEmpty()) Utilities.print(TAG, "photofile is empty !");
-			else  Utilities.print(TAG, "photfile is not empty!");
-			for (int i=0; i< photofiles.size(); i++)
+			if ( photofiles != null && photofiles.size() > 0 )
 			{
-				Utilities.print(TAG, "entere for file # " + i + photofiles.get(i));
-			}
-
-			// TODO: 12/2/2016 fixe formating of the images puting in to the pdf
-			if (!photofiles.isEmpty())
-			{
-				Utilities.print(TAG, "Additing a photo");
-				for (String photo: photofiles)
+				Utilities.print(TAG, "The number of files is: " + photofiles.size());
+				if (photofiles.isEmpty()) Utilities.print(TAG, "photofile is empty !");
+				else  Utilities.print(TAG, "photfile is not empty!");
+				for (int i=0; i< photofiles.size(); i++)
 				{
-					Utilities.print(TAG, "Additing photo: " + photo);
-					Image tempphotoinmg = resizeBitmap(photo, 200, 200, false);
-					document.add(tempphotoinmg);
+					Utilities.print(TAG, "entere for file # " + i + photofiles.get(i));
+				}
+				// TODO: 12/2/2016 fixe formating of the images puting in to the pdf
+				if (!photofiles.isEmpty())
+				{
+					Utilities.print(TAG, "Additing a photo");
+					for (String photo: photofiles)
+					{
+						Utilities.print(TAG, "Additing photo: " + photo);
+						Image tempphotoinmg = resizeBitmap(photo, 200, 200, false);
+						document.add(tempphotoinmg);
+					}
 				}
 			}
-			document.close();
-			clear();
 		} catch (DocumentException e)
 		{
 			e.printStackTrace();
@@ -229,7 +230,11 @@ public class CheckoutPDF
 		{
 			e.printStackTrace();
 		}
-
+		finally
+		{
+			document.close();
+			clear();
+		}
 	}
 
 	private byte[] getImgFromDrawable(int drID, int w, int h)
@@ -269,7 +274,10 @@ public class CheckoutPDF
 			Bitmap rotatedBitmap = Bitmap.createBitmap(bitmapret, 0, 0, bitmapret.getWidth(), bitmapret.getHeight(), matrix, true);
 			rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 		} else bitmapret.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-		return Image.getInstance(stream.toByteArray());
+
+		Image retval = Image.getInstance(stream.toByteArray());
+		stream.close();
+		return retval;
 	}
 
 	private void clear()
@@ -281,13 +289,23 @@ public class CheckoutPDF
 
 	private void deletefiel(String path)
 	{
+		Utilities.print(TAG, "Deleting file : " + path);
 		File file = new File(path);
-		file.delete();
+		boolean filedeleted = file.delete();
+		if (!filedeleted) Utilities.print(TAG, "File wos not deleted ! :(");
+		else  Utilities.print(TAG, "File was deleted ! :)");
 		if (file.exists())
 		{
+			Utilities.print(TAG, "File still here :( " + file.getPath() );
 			try 				  { file.getCanonicalFile().delete(); }
 			catch (IOException e) { e.printStackTrace(); }
 			if (file.exists()) 	  { context.getApplicationContext().deleteFile(file.getName()); }
 		}
+		if (file.exists())
+			Utilities.print(TAG, "File still here :( " + file.getPath() );
+		else
+			Utilities.print(TAG, "File Deleted :) " + file.getPath() );
+
+		context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(path))));
 	}
 }

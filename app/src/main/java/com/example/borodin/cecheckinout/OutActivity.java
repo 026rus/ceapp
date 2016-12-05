@@ -2,6 +2,7 @@ package com.example.borodin.cecheckinout;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -117,7 +118,7 @@ public class OutActivity extends AppCompatActivity
 		{
 			Utilities.print(TAG, "Seting the defolt options for check In Out Activity ");
 			switchmanagercopy.setChecked(preferences.getBoolean(getString(R.string.manageremailswitchsave), false));
-			managerEmail.setText(preferences.getString(getString(R.string.TheManagerEmail), "Sorry nothing there"));
+			managerEmail.setText(preferences.getString(getString(R.string.TheManagerEmail), ""));
 
 			switchmanagercopy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
 			{
@@ -296,8 +297,7 @@ public class OutActivity extends AppCompatActivity
 						Bitmap bitmap;
 						BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
 
-						bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
-								bitmapOptions);
+						bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(), bitmapOptions);
 
 						if (tempImageView != null)
 						{
@@ -305,10 +305,13 @@ public class OutActivity extends AppCompatActivity
 							tempImageView.setImageBitmap(profileImage);
 						}
 
+						// Making path to the photo
 						String path = android.os.Environment
 								.getExternalStorageDirectory()
 								+ File.separator
-								+ "Phoenix" + File.separator + "default";
+								+ "DCIM" + File.separator + "Camera";
+
+						// deleting temp file
 						f.delete();
 						OutputStream outFile = null;
 						String tempphotofilename = String.valueOf(System.currentTimeMillis()) + ".jpg";
@@ -352,6 +355,16 @@ public class OutActivity extends AppCompatActivity
 						Bitmap profileImage = Bitmap.createScaledBitmap(thumbnail, 120, 120, false);
 						tempImageView.setImageBitmap(profileImage);
 					}
+					break;
+				case 5: // Email sended
+					// TODO: 12/5/2016 Fixe first time email
+					// do not waite for user to select email client to send email and
+					// going strait to the text step wha is main Activity
+					Utilities.print(TAG, "Finished sending Email need to go back to Main Activity");
+					Intent intent = new Intent(OutActivity.this, MainActivity.class);
+					startActivity(intent);
+					// Open pdf for tecting
+					// openmanfile(pdfUri.getPath());
 					break;
 			}
 		}
@@ -460,18 +473,38 @@ public class OutActivity extends AppCompatActivity
 						// sending the pdf by email !
 						if (managerEmail != null)
 						{
-							Utilities.sendEmail(OutActivity.this, correntMessege, new String[]{correntProject.getEmail(), managerEmail.getText().toString()}, pdfUri);
-							Utilities.print(TAG, "Sending email to: " + correntProject.getEmail() + " and "+ managerEmail.getText().toString());
+							// Utilities.sendEmail(OutActivity.this, correntMessege, new String[]{correntProject.getEmail(), managerEmail.getText().toString()}, pdfUri);
+							// Utilities.print(TAG, "Sending email to: " + correntProject.getEmail() + " and "+ managerEmail.getText().toString());
+							Utilities.print(TAG, "Sending Email at 44 ");
+
+							Intent intentout = new Intent(Intent.ACTION_SEND);
+							intentout.setType("image/png");
+							intentout.putExtra(Intent.EXTRA_EMAIL, new String[]{correntProject.getEmail(), managerEmail.getText().toString()});
+							intentout.putExtra(Intent.EXTRA_SUBJECT, "Checking out Store " + correntMessege.getSiteStoreNumber());
+							intentout.putExtra(Intent.EXTRA_TEXT, correntMessege.getOutMasseg());
+							intentout.putExtra(Intent.EXTRA_STREAM, pdfUri);
+							try
+							{
+								startActivityForResult(intentout, 5);
+								Utilities.print(TAG, "Email was sended sucsesefuly !");
+							} catch (ActivityNotFoundException e)
+							{
+								Toast.makeText(OutActivity.this, "There are no email clients installed.", Toast.LENGTH_LONG).show();
+								Utilities.print(TAG, "There are no email clients installed.");
+							}
+
 						}
 						else
 						{
 							Utilities.sendEmail(OutActivity.this, correntMessege, new String[]{correntProject.getEmail()}, pdfUri);
 							Utilities.print(TAG, "Sending email to: " + correntProject.getEmail() + " and no one else !! :( ");
 						}
-						Intent intent = new Intent(OutActivity.this, MainActivity.class);
-						startActivity(intent);
-						// TODO: 11/7/2016  need to send this pdf via email to the project mail box.
-						// not sure if it still working any more !
+						// TODO: 12/5/2016 Fixe first time email
+						// do not waite for user to select email client to send email and
+						// going strait to the text step wha is main Activity
+						// Intent intent = new Intent(OutActivity.this, MainActivity.class);
+						// startActivity(intent);
+						// Open pdf for tecting
 						// openmanfile(pdfUri.getPath());
 					}
 				});
