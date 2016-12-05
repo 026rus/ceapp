@@ -356,17 +356,19 @@ public class OutActivity extends AppCompatActivity
 						tempImageView.setImageBitmap(profileImage);
 					}
 					break;
-				case 5: // Email sended
-					// TODO: 12/5/2016 Fixe first time email
-					// do not waite for user to select email client to send email and
-					// going strait to the text step wha is main Activity
-					Utilities.print(TAG, "Finished sending Email need to go back to Main Activity");
-					Intent intent = new Intent(OutActivity.this, MainActivity.class);
-					startActivity(intent);
-					// Open pdf for tecting
-					// openmanfile(pdfUri.getPath());
-					break;
 			}
+		}
+		if (requestCode == 5)
+		{
+			// Email sended
+			// TODO: 12/5/2016 Fixe first time email
+			// do not waite for user to select email client to send email and
+			// going strait to the text step wha is main Activity
+			Utilities.print(TAG, "Finished sending Email need to go back to Main Activity");
+			Intent intent = new Intent(OutActivity.this, MainActivity.class);
+			startActivity(intent);
+			// Open pdf for tecting
+			// openmanfile(pdfUri.getPath());
 		}
 	}
 
