@@ -8,9 +8,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Point;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import java.io.ByteArrayOutputStream;
 
 public class SignatureActivity extends Activity
 {
+	private static final String TAG = "SignatureActivity_TEST";
 	private signature mSignature;
 	private Paint paint;
 	private LinearLayout mContent;
@@ -128,21 +131,39 @@ public class SignatureActivity extends Activity
 		@Override
 		protected void onDraw(Canvas canvas)
 		{
-			// TODO Auto-generated method stub
+			Display display = getWindowManager().getDefaultDisplay();
+			Point size = new Point();
+			display.getSize(size);
+			int width = size.x;
+			int height = size.y;
+			int pw = width * 25 / 100;
+			int ph = height * 15 / 100;
+			int tsize = width * 10 / 100;
+			Utilities.print(TAG, "Width: " + width + " Height: " + height);
+			Utilities.print(TAG, "20 % of Width: " + pw + " 20 % of Height: " + ph);
+			Utilities.print(TAG, "Text size: " + tsize);
+
+			// TODO chenhe all the constant numners
+			// this do not scale to different scrinn sizes
 			setforwrit();
 			canvas.save();
-			int x = 350,
-				y = 550;
-			canvas.rotate((float)90, x, y);
-			paint.setTextSize(90);
-			canvas.drawText(managerName, x, y, paint);
+
+			// disply manager name
+			canvas.rotate((float)90, pw-(tsize+3), ph);
+			paint.setTextSize(tsize);
+			canvas.drawText(managerName, pw, ph, paint);
 			canvas.restore();
 			setfordraw();
 			// draw the cross
-			canvas.drawLine(500, 300, 700, 500, paint);
-			canvas.drawLine(700, 300, 500, 500, paint);
+			int x  = (int)(pw*1.2);
+			int y  = (int)(ph);
+			int x2 = (int)(pw*1.5);
+			int y2 = (int)(ph*1.3);
+			Utilities.print(TAG, "Line x = " + x + " Line Y = " + y);
+			canvas.drawLine( x, y, x2, y2, paint);
+			canvas.drawLine(x2, y, x, y2, paint);
 			// draw the line for signature
-			canvas.drawLine(450, 250, 450, 1800, paint);
+			canvas.drawLine(pw, ph, pw, height - (int)(ph*1.5), paint);
 			canvas.drawPath(path, paint);
 		}
 

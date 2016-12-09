@@ -30,33 +30,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\borodin\Dev\Android\CECheckInOut\app\libs\itextg-5.5.8.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="b4776ad88a90a2cf10ca37c454c5520c7d5466f7">
-        <dex dex="C:\Users\borodin\Dev\Android\CECheckInOut\app\build\intermediates\transforms\dex\debug\folders\1000\2\itextg-5.5.8_29c635a5f46cee2b1c8cf1400a9541cd699d7930\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\borodin\Dev\Android\CECheckInOut\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
-        <dex dex="C:\Users\borodin\Dev\Android\CECheckInOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.4.0_3ad9a7c26f626b34f549523317a500d3899cc9fb\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\borodin\Dev\Android\CECheckInOut\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="10f55d8e4907d32f4598e4f3aacc76fa76ff6b0c">
-        <dex dex="C:\Users\borodin\Dev\Android\CECheckInOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_3d92613c444acbb9d929ca0b53a2cc3c49b00144\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\borodin\Dev\Android\CECheckInOut\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.4.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -84,6 +57,33 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\borodin\Dev\Android\CECheckInOut\app\libs\itextg-5.5.8.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="b4776ad88a90a2cf10ca37c454c5520c7d5466f7">
+        <dex dex="C:\Users\borodin\Dev\Android\CECheckInOut\app\build\intermediates\transforms\dex\debug\folders\1000\2\itextg-5.5.8_29c635a5f46cee2b1c8cf1400a9541cd699d7930\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\borodin\Dev\Android\CECheckInOut\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="C:\Users\borodin\Dev\Android\CECheckInOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.4.0_3ad9a7c26f626b34f549523317a500d3899cc9fb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\borodin\Dev\Android\CECheckInOut\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="978dcb0ac21096dce3e3af320af45cdd14909a8b">
+        <dex dex="C:\Users\borodin\Dev\Android\CECheckInOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_3d92613c444acbb9d929ca0b53a2cc3c49b00144\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\borodin\Dev\Android\CECheckInOut\app\libs\junit-4.12.jar"
         jumboMode="true"
         optimize="true"
@@ -97,7 +97,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.2"
-        sha1="fe0f91c32f3cd690d0f83e931277efc4557e14b0">
+        sha1="1817f06addb21a43b284167a2b36848504032a55">
         <dex dex="C:\Users\borodin\Dev\Android\CECheckInOut\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_9a6fb78cfc7e801fd79bb621d804815157be79c4\classes.dex" />
     </item>
 
