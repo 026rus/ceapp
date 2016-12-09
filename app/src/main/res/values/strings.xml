@@ -2,6 +2,7 @@
 	<string name = "app_name">CE Check In / Out</string>
 	<string name = "api_getprojects">http://195.154.163.58/_api/hptest/getprojects.php</string>
 	<string name = "api_getallquestions">http://195.154.163.58/_api/hptest/getallquestions.php</string>
+	<string name = "api_getallinquestions">http://195.154.163.58/_api/hptest/getallinquestions.php</string>
 	<string name = "api_getfiles">http://195.154.163.58/_api/hptest/getfiles.php</string>
 	<string name = "api_update">http://195.154.163.58/_api/hptest/getupdate.php</string>
 	<string name = "man_server_loc">http://195.154.163.58/_api/pfiles/</string>

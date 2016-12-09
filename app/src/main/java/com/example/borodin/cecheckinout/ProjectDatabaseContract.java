@@ -55,4 +55,21 @@ public final class ProjectDatabaseContract
 						COLUMN_ORDER + INT_TYPE + ")";
 		public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 	}
+	public static abstract class QuestionsInColumns implements BaseColumns
+	{
+		public static final String TABLE_NAME       = "checkinquestionsTable";
+		public static final String COLUMN_QUESTION  = "question";
+		public static final String COLUMN_PROJECT   = "project";
+		public static final String COLUMN_TYPE  	= "type";
+		public static final String COLUMN_ORDER  	= "orderq";
+
+		public static final String CREATE_TABLE =
+				"CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
+						_ID + " INTEGER PRIMARY KEY, " +
+						COLUMN_QUESTION + TEXT_TYPE + COMMA_SEP +
+						COLUMN_PROJECT + TEXT_TYPE + COMMA_SEP +
+						COLUMN_TYPE + TEXT_TYPE + COMMA_SEP +
+						COLUMN_ORDER + INT_TYPE + ")";
+		public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
+	}
 }

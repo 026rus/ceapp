@@ -74,7 +74,7 @@ public class ProjectSQLiteOpenHelper extends SQLiteOpenHelper
 		return projects;
 	}
 
-	// Qestions starts here
+	// Qestions Out starts here
 	public void deleteAllQuestions(SQLiteDatabase db)
 	{
 		db.execSQL(ProjectDatabaseContract.QuestionsColumns.DELETE_TABLE);
@@ -133,5 +133,67 @@ public class ProjectSQLiteOpenHelper extends SQLiteOpenHelper
 		values.put(ProjectDatabaseContract.QuestionsColumns.COLUMN_TYPE, q.getQuestionType());
 
 		db.insert(ProjectDatabaseContract.QuestionsColumns.TABLE_NAME, null, values);
+	}
+
+	// Qestions In starts here
+	public void deleteAllInQuestions(SQLiteDatabase db)
+	{
+		db.execSQL(ProjectDatabaseContract.QuestionsInColumns.DELETE_TABLE);
+		db.execSQL(ProjectDatabaseContract.QuestionsInColumns.CREATE_TABLE);
+	}
+
+	public ArrayList<Question> readAllInQuestions (SQLiteDatabase db)
+	{
+		ArrayList<Question> questions = new ArrayList<Question>();
+
+		Cursor c = db.rawQuery("Select * from " + ProjectDatabaseContract.QuestionsInColumns.TABLE_NAME, null);
+		c.moveToFirst();
+		while ( c.isAfterLast() == false )
+		{
+			int id          	= c.getInt(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns._ID));
+			int project     	= c.getInt(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns.COLUMN_PROJECT));
+			String question 	= c.getString(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns.COLUMN_QUESTION));
+			String questionType = c.getString(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns.COLUMN_TYPE));
+			int order 			= c.getInt(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns.COLUMN_ORDER));
+
+			Question q = new Question(id, question, questionType, project, order);
+			questions.add(q);
+			c.moveToNext();
+		}
+		return questions;
+	}
+
+	public ArrayList<Question> readInQuestionsByProjectId (SQLiteDatabase db, int p)
+	{
+		ArrayList<Question> questions = new ArrayList<Question>();
+
+		Cursor c = db.rawQuery("Select * from " + ProjectDatabaseContract.QuestionsInColumns.TABLE_NAME + " WHERE "
+				+ ProjectDatabaseContract.QuestionsInColumns.COLUMN_PROJECT + "=" + p +
+				" OR " + ProjectDatabaseContract.QuestionsInColumns.COLUMN_PROJECT + "=0", null);
+		c.moveToFirst();
+		while ( c.isAfterLast() == false )
+		{
+			int id          = c.getInt(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns._ID));
+			int project     = c.getInt(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns.COLUMN_PROJECT));
+			String question = c.getString(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns.COLUMN_QUESTION));
+			String questionType = c.getString(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns.COLUMN_TYPE));
+			int order 		= c.getInt(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns.COLUMN_ORDER));
+
+			Question q = new Question(id, question, questionType, project, order);
+			questions.add(q);
+			c.moveToNext();
+		}
+		return questions;
+	}
+
+	public void addInQustion( SQLiteDatabase db, Question q)
+	{
+		db.execSQL(ProjectDatabaseContract.QuestionsInColumns.CREATE_TABLE);
+		ContentValues values = new ContentValues();
+		values.put(ProjectDatabaseContract.QuestionsInColumns.COLUMN_QUESTION, q.getQestion());
+		values.put(ProjectDatabaseContract.QuestionsInColumns.COLUMN_PROJECT, q.getProject());
+		values.put(ProjectDatabaseContract.QuestionsInColumns.COLUMN_TYPE, q.getQuestionType());
+
+		db.insert(ProjectDatabaseContract.QuestionsInColumns.TABLE_NAME, null, values);
 	}
 }
