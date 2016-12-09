@@ -60,6 +60,17 @@ public class SyncSQLDB extends AsyncTask<String, Integer, String>
 
 			updateSQLiteQuestions(stream);
 		}
+		{
+			Utilities.print(TAG, "The number of arguments is : " + params.length);
+			if (params.length > 2)
+			{
+				String stream = null;
+				String urlString = params[2];
+				HTTPDataHandler hh = new HTTPDataHandler();
+				stream = hh.GetHTTPData(urlString);
+				updateSQLiteInQuestions(stream);
+			}
+		}
 		return "done";
 	}
 
@@ -84,11 +95,6 @@ public class SyncSQLDB extends AsyncTask<String, Integer, String>
 				for (int i = 0; i < arrProjects.length(); i++)
 				{
 					JSONObject object = (JSONObject) arrProjects.get(i);
-					Log.d(TAG, "Project Id: " + object.get("projectID"));
-					Log.d(TAG, "Project Name: " + object.get("projectNAME"));
-					Log.d(TAG, "Project Email: " + object.get("projectEMAIL"));
-					Log.d(TAG, "Project Phone: " + object.get("projectPHONE"));
-					Log.d(TAG, "Project FILE: " + object.get("projectFILES"));
 
 					editor.putString( object.getString("projectNAME"), object.getString("projectTIMEUP"));
 
@@ -125,10 +131,42 @@ public class SyncSQLDB extends AsyncTask<String, Integer, String>
 				for (int i = 0; i < arr.length(); i++)
 				{
 					JSONObject object = (JSONObject) arr.get(i);
-					Log.d(TAG, "Question Id: " + object.get("questionID"));
-					Log.d(TAG, "Question : " + object.get("questionQ"));
-					Log.d(TAG, "Question type: " + object.get("questionT"));
-					Log.d(TAG, "Question project: " + object.get("questionP"));
+
+					Question p = new Question(  object.getInt("questionID"),
+							object.getString("questionQ"),
+							object.getString("questionT"),
+							object.getInt("questionP"),
+							object.getInt("questionORDER"));
+
+					phelper.addQustion(db, p);
+				}
+			} catch (JSONException e)
+			{
+				e.printStackTrace();
+			}
+			db.close();
+		}
+	}
+
+	public void updateSQLiteInQuestions(String response)
+	{
+		Utilities.print(TAG, " Respons for In Questions: " + response);
+		if (response != null)
+		{
+			try
+			{
+				JSONArray arr = new JSONArray(response);
+				Log.d(TAG, "get " + arr.length() + " projects");
+				phelper = new ProjectSQLiteOpenHelper(That);
+				db = phelper.getReadableDatabase();
+				phelper.deleteAllInQuestions(db);
+				for (int i = 0; i < arr.length(); i++)
+				{
+					JSONObject object = (JSONObject) arr.get(i);
+					Utilities.print(TAG, "In Question Id: " + object.get("questionID"));
+					Utilities.print(TAG, "In Question : " + object.get("questionQ"));
+					Utilities.print(TAG, "In Question type: " + object.get("questionT"));
+					Utilities.print(TAG, "In Question project: " + object.get("questionP"));
 
 					Question p = new Question(  object.getInt("questionID"),
 												object.getString("questionQ"),
@@ -136,7 +174,7 @@ public class SyncSQLDB extends AsyncTask<String, Integer, String>
 												object.getInt("questionP"),
 												object.getInt("questionORDER"));
 
-					phelper.addQustion(db, p);
+					phelper.addInQustion(db, p);
 				}
 			} catch (JSONException e)
 			{

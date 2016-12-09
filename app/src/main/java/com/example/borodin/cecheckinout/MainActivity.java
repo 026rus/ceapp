@@ -159,7 +159,8 @@ public class MainActivity extends AppCompatActivity
 		if (Utilities.isNetworkAvailable(this))
 		{
 			new SyncSQLDB(this, progressBar, listener).execute(getString(R.string.api_getprojects),
-					getString(R.string.api_getallquestions));
+					getString(R.string.api_getallquestions),
+					getString(R.string.api_getallinquestions));
 		}
 	}
 

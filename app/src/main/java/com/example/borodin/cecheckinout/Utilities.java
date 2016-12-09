@@ -24,7 +24,7 @@ public final class Utilities
 	public static void print(String tag, String str)
 	{
 		// uncoment befor testing app
-		// Log.d(tag, str);
+		Log.d(tag, str);
 	}
 
 	public static boolean isNetworkAvailable(Context context)

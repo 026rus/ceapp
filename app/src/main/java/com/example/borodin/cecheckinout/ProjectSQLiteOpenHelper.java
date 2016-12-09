@@ -173,11 +173,11 @@ public class ProjectSQLiteOpenHelper extends SQLiteOpenHelper
 		c.moveToFirst();
 		while ( c.isAfterLast() == false )
 		{
-			int id          = c.getInt(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns._ID));
-			int project     = c.getInt(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns.COLUMN_PROJECT));
-			String question = c.getString(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns.COLUMN_QUESTION));
+			int id          	= c.getInt(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns._ID));
+			int project     	= c.getInt(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns.COLUMN_PROJECT));
+			String question 	= c.getString(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns.COLUMN_QUESTION));
 			String questionType = c.getString(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns.COLUMN_TYPE));
-			int order 		= c.getInt(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns.COLUMN_ORDER));
+			int order 			= c.getInt(c.getColumnIndex(ProjectDatabaseContract.QuestionsInColumns.COLUMN_ORDER));
 
 			Question q = new Question(id, question, questionType, project, order);
 			questions.add(q);
