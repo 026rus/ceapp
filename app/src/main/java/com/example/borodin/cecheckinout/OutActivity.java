@@ -266,7 +266,6 @@ public class OutActivity extends AppCompatActivity
 		builder.show();
 	}
 
-	//// TODO: 9/19/2016 figure out nmaes for photos and hpw to send it ot email ! need path to ful img
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
@@ -352,7 +351,7 @@ public class OutActivity extends AppCompatActivity
 					correntMessege.addFile(picturePath);
 					if (tempImageView != null)
 					{
-						Bitmap profileImage = Bitmap.createScaledBitmap(thumbnail, 120, 120, false);
+						Bitmap profileImage = Bitmap.createScaledBitmap(thumbnail, 220, 220, true);
 						tempImageView.setImageBitmap(profileImage);
 					}
 					break;
