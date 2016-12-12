@@ -107,10 +107,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cc48b16a-489d-4518-abd5-51578a2ec74b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/InActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_in.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/CheckInOutActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/CheckInOutActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/InActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/InActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_in.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_in.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
     </list>
     <ignored path="CECheckInOut.iws" />
@@ -125,6 +124,26 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DockManager">
+    <window id="3">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="OutActivity.java" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/OutActivity.java">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="1474">
+                    <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="ExternalProjectsData">
@@ -164,34 +183,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CheckInOutActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CheckInOutActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/CheckInOutActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="638">
-              <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+            <state relative-caret-position="726">
+              <caret line="162" column="58" selection-start-line="162" selection-start-column="58" selection-end-line="162" selection-end-column="58" />
               <folding>
                 <element signature="e#2059#2097#0" expanded="true" />
+                <element signature="e#5142#5178#0" expanded="true" />
+                <element signature="e#5216#5252#0" expanded="true" />
+                <element signature="e#5609#5645#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OutActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/OutActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="InActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/InActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="26" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
-              <folding />
+            <state relative-caret-position="638">
+              <caret line="48" column="43" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
+              <folding>
+                <element signature="e#1345#1381#0" expanded="true" />
+                <element signature="e#1449#1485#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -202,9 +217,11 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="48" column="43" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
-              <folding />
+            <state relative-caret-position="726">
+              <caret line="40" column="37" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
+              <folding>
+                <element signature="e#1232#1250#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1875,10 +1892,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/Utilities.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/SyncSQLDB.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/ProjectDatabaseContract.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/CheckInOutActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/InActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_in.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_in.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/InActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/CheckInOutActivity.java" />
       </list>
     </option>
   </component>
@@ -2490,7 +2507,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-12" y="-12" width="1944" height="1184" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20469083" sideWeight="0.5051395" order="5" side_tool="true" content_ui="tabs" />
@@ -2898,13 +2915,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/CheckInOutActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_out.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
-          <folding>
-            <element signature="e#2059#2097#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="330">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2918,19 +2936,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/OutActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_out.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        <state relative-caret-position="1474">
+          <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2940,17 +2947,35 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="48" column="43" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
-          <folding />
+        <state relative-caret-position="726">
+          <caret line="40" column="37" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
+          <folding>
+            <element signature="e#1232#1250#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/InActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="26" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
-          <folding />
+        <state relative-caret-position="638">
+          <caret line="48" column="43" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
+          <folding>
+            <element signature="e#1345#1381#0" expanded="true" />
+            <element signature="e#1449#1485#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/borodin/cecheckinout/CheckInOutActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="726">
+          <caret line="162" column="58" selection-start-line="162" selection-start-column="58" selection-end-line="162" selection-end-column="58" />
+          <folding>
+            <element signature="e#2059#2097#0" expanded="true" />
+            <element signature="e#5142#5178#0" expanded="true" />
+            <element signature="e#5216#5252#0" expanded="true" />
+            <element signature="e#5609#5645#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

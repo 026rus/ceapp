@@ -81,4 +81,6 @@
 	<string name = "manageremailswitchsave">MANAGEREMAIL</string>
 	<string name = "TheManagerEmail">THEMANAGEREMAIL</string>
 	<string name = "TheManagerName">MANAGERNAME</string>
+	<string name = "IntentTagProject">project</string>
+	<string name = "IntentTagMessage">message</string>
 </resources>

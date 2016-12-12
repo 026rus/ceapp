@@ -134,14 +134,19 @@ public class CheckInOutActivity extends AppCompatActivity implements OnFileDownl
 
 		if (correntQuestions == null || correntQuestions.isEmpty())
 			Utilities.print(TAG, "There is no CHeck IN questions for this project.");
+
 		else
 		{
+			// That is just for testing
 			Utilities.print(TAG, "there is " + correntQuestions.size() + " check in questions in this project");
 			for(int i=0; i < correntQuestions.size(); i++)
-			{
 				Utilities.print(TAG, "\t" + i + ") " + correntQuestions.get(i).getQuestionType() + " - " + correntQuestions.get(i).getQestion());
-			}
+			////////////////////////////////////////////////////////////////////////////////////////
 
+			Intent intent = new Intent(this, InActivity.class);
+			intent.putExtra(getString(R.string.IntentTagProject), correntProject);
+			intent.putExtra(getString(R.string.IntentTagMessage), messege);
+			startActivity(intent);
 		}
 
 	}
@@ -155,8 +160,8 @@ public class CheckInOutActivity extends AppCompatActivity implements OnFileDownl
 	public void onClickCheckOut (View v)
 	{
 		Intent intent = new Intent(this, OutActivity.class);
-		intent.putExtra("project", correntProject);
-		intent.putExtra("message", messege);
+		intent.putExtra(getString(R.string.IntentTagProject), correntProject);
+		intent.putExtra(getString(R.string.IntentTagMessage), messege);
 		startActivity(intent);
 	}
 
