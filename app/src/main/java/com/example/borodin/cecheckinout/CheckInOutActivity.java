@@ -116,8 +116,34 @@ public class CheckInOutActivity extends AppCompatActivity implements OnFileDownl
 
 	public void onClickCheckIn (View v)
 	{
+		Utilities.print(TAG, "Check In button pressed!");
 		// comment for testing check in check list.
-		Utilities.sendEmail(this, Constants.CHECKIN , messege, new String[]{correntProject.getEmail()});
+		// Utilities.sendEmail(this, Constants.CHECKIN , messege, new String[]{correntProject.getEmail()});
+
+		SQLiteDatabase db;
+		ProjectSQLiteOpenHelper dbhelper;
+		ArrayList<Question> correntQuestions = null;
+
+		dbhelper = new ProjectSQLiteOpenHelper(this);
+		db = dbhelper.getReadableDatabase();
+
+		if (correntProject != null)
+			correntQuestions = dbhelper.readInQuestionsByProjectId(db, correntProject.getId());
+		else
+			Toast.makeText(this, "Problem with project Sorry ", Toast.LENGTH_SHORT).show();
+
+		if (correntQuestions == null || correntQuestions.isEmpty())
+			Utilities.print(TAG, "There is no CHeck IN questions for this project.");
+		else
+		{
+			Utilities.print(TAG, "there is " + correntQuestions.size() + " check in questions in this project");
+			for(int i=0; i < correntQuestions.size(); i++)
+			{
+				Utilities.print(TAG, "\t" + i + ") " + correntQuestions.get(i).getQuestionType() + " - " + correntQuestions.get(i).getQestion());
+			}
+
+		}
+
 	}
 
 	public void onClickGoBack(View v)
