@@ -75,6 +75,7 @@
 	<string name = "set">This one</string>
 	<string name = "choose_file_to_download">Choose File to Download</string>
 	<string name = "check_out">Check OUT</string>
+	<string name = "check_in">Check IN</string>
 	<string name = "dboutdatedmeseg"> "This project(s) was updated: " </string>
 	<string name = "setings_for_update">sheredprefforupdatetimestemp</string>
 	<string name = "manageremailswitchsave">MANAGEREMAIL</string>

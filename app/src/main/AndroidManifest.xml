@@ -33,14 +33,18 @@
 		</activity>
 		<activity
 			android:name = ".SettingsActivity"
-			android:screenOrientation = "portrait"
-			android:label = "@string/title_activity_settings">
-		</activity>
-		<activity android:name = ".OutActivity"
+			android:label = "@string/title_activity_settings"
 			android:screenOrientation = "portrait">
 		</activity>
-		<activity android:name = ".SignatureActivity"
-				  android:screenOrientation = "portrait">
+		<activity
+			android:name = ".OutActivity"
+			android:screenOrientation = "portrait">
+		</activity>
+		<activity
+			android:name = ".SignatureActivity"
+			android:screenOrientation = "portrait">
+		</activity>
+		<activity android:name = ".InActivity">
 		</activity>
 	</application>
 
