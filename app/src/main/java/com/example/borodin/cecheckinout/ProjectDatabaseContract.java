@@ -1,9 +1,9 @@
 package com.example.borodin.cecheckinout;
-
 import android.provider.BaseColumns;
 
 /**
  * Created by borodin on 6/10/2016.
+ * To prevent accidentally inheritance of this class.
  */
 public final class ProjectDatabaseContract
 {
@@ -13,11 +13,13 @@ public final class ProjectDatabaseContract
 	public static final String INT_TYPE            = " integer";
 	public static final String COMMA_SEP           = ", ";
 
-	// To prevent someone from accidentally instantiating the contract class,
-	// give it an empty private constructor.
+	/* To prevent someone from accidentally instantiating the contract class,
+	 * give it an empty private constructor. */
 	private ProjectDatabaseContract() {}
 
-	/* Inner class that defines the table contents */
+	/* Inner class that defines the table contents
+	 * Make it abstract to prevent accidentally instantiating this class. */
+
 	public static abstract class ProjectColumns implements BaseColumns
 	{
 
@@ -38,6 +40,7 @@ public final class ProjectDatabaseContract
 						COLUMN_UPDTIME + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" + ")";
 		public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 	}
+
 	public static abstract class QuestionsColumns implements BaseColumns
 	{
 		public static final String TABLE_NAME       = "questionsTable";
@@ -55,6 +58,7 @@ public final class ProjectDatabaseContract
 						COLUMN_ORDER + INT_TYPE + ")";
 		public static final String DELETE_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 	}
+
 	public static abstract class QuestionsInColumns implements BaseColumns
 	{
 		public static final String TABLE_NAME       = "checkinquestionsTable";

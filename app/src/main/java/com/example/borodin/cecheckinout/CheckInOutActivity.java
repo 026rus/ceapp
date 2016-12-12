@@ -109,8 +109,14 @@ public class CheckInOutActivity extends AppCompatActivity implements OnFileDownl
 	}
 
 
+	/* TODO: 12/12/2016 Add check for questiosn and chtck list on "Check IN" and if there is ont
+		then open new Activity to conform all the check boxs and then send the email. If not
+		then sen email with just basic "check in" information.
+	 */
+
 	public void onClickCheckIn (View v)
 	{
+		// comment for testing check in check list.
 		Utilities.sendEmail(this, Constants.CHECKIN , messege, new String[]{correntProject.getEmail()});
 	}
 
