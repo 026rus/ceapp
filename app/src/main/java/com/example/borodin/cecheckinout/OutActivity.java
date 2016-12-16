@@ -463,15 +463,7 @@ public class OutActivity extends AppCompatActivity
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
-						Utilities.print(TAG, "Sending email");
 						Uri pdfUri =  makePDF(correntMessege);
-						Utilities.print(TAG, "########################################################");
-						Utilities.print(TAG, "after pdf");
-
-						// sending the pdf by email !
-						// Utilities.sendEmail(OutActivity.this, correntMessege, new String[]{correntProject.getEmail(), managerEmail.getText().toString()}, pdfUri);
-						// Utilities.print(TAG, "Sending email to: " + correntProject.getEmail() + " and "+ managerEmail.getText().toString());
-						Utilities.print(TAG, "Sending Email at 44 ");
 
 						Intent intentout = new Intent(Intent.ACTION_SEND);
 						intentout.setType("image/png");
