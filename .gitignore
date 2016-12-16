@@ -1,6 +1,8 @@
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
+.DS_Store?
+*~
 
 # Folder config file
 Desktop.ini
@@ -50,6 +52,13 @@ Temporary Items
 # =========================
 # Built application files
 /*/build/
+/build
+build/
+
+# Android Studio
+*.iml
+.idea
+.gradle
 
 # Crashlytics configuations
 com_crashlytics_export_strings.xml
@@ -77,12 +86,15 @@ local.properties
 .idea/vcs.xml
 *.iml
 
-# OS-specific files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-*~
+# Java class files
+*.class
+#built application files
+*.apk
+*.ap_
+
+# Eclipse project files
+.classpath
+.project
+
+
+
