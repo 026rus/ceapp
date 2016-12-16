@@ -256,11 +256,7 @@ public class MessegeInOut implements Parcelable
 				"Tech Name: " + tn + Utilities.newline +
 				"Tech Phone Number: " + tpn + Utilities.newline;
 
-		retval += "Aditing new massage DO NOT FORGOT TO DELET IT" + Utilities.newline;
-		if (InMasseg != null )
-			retval += InMasseg + Utilities.newline;
-		else
-			retval += "In is empty :( " + Utilities.newline;
+		if (InMasseg != null ) retval += InMasseg + Utilities.newline;
 
 		retval += Utilities.getTimeZon() + Utilities.newline;
 		retval += Utilities.getTime();

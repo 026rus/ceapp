@@ -1,6 +1,7 @@
 package com.example.borodin.cecheckinout;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBar;
@@ -91,14 +92,12 @@ public class InActivity extends AppCompatActivity
 				if (((CheckBox) view).isChecked())
 				{
 					sendmassege.append(((CheckBox) view).getText().toString() + " is complete" + Utilities.newline);
-					Utilities.print(TAG, ((CheckBox) view).getText().toString() + " is complete" + Utilities.newline);
 					String str = ((CheckBox) view).getText().toString() + " is complete" + Utilities.newline;
 					correntMessege.addChecklist(str, MessegeInOut.ISCHEKET);
 				} else
 				{
-					sendmassege.append(((CheckBox) view).getText().toString() + " is not complete" + Utilities.newline);
-					Utilities.print(TAG,((CheckBox) view).getText().toString() + " is not complete" + Utilities.newline);
-					String str = ((CheckBox) view).getText().toString() + " is not complete" + Utilities.newline;
+					sendmassege.append(((CheckBox) view).getText().toString() + " is NOT complete" + Utilities.newline);
+					String str = ((CheckBox) view).getText().toString() + " is NOT complete" + Utilities.newline;
 					correntMessege.addChecklist(str, MessegeInOut.ISNOTCHEKET);
 				}
 			} else if (view instanceof LinearLayout)
@@ -122,9 +121,27 @@ public class InActivity extends AppCompatActivity
 				}
 			}
 		}
-		Utilities.print(TAG, "InActivity email massage : " + sendmassege.toString());
 		correntMessege.setInMasseg(sendmassege.toString());
-		Utilities.sendEmail(InActivity.this, Constants.CHECKIN, correntMessege, new String[]{correntProject.getEmail()} );
+		Utilities.print(TAG, "getting the masege");
+		String sedMessage = correntMessege.getCheckInMessage();
+		Utilities.print(TAG, "Massage in: " + sedMessage);
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("message/rfc822");
+		intent.putExtra(Intent.EXTRA_EMAIL, new String[]{correntProject.getEmail()});
+		intent.putExtra(Intent.EXTRA_SUBJECT, "Checking in Store " + correntMessege.getSiteStoreNumber());
+		intent.putExtra(Intent.EXTRA_TEXT, sedMessage);
+		try
+		{
+			InActivity.this.startActivityForResult(intent,5);
+		} catch (ActivityNotFoundException e)
+		{
+			Toast.makeText(InActivity.this , "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+		}
+
+
+		// Utilities.print(TAG, "Finished sending Email need to go back to Main Activity");
+		// Intent intent = new Intent(InActivity.this, MainActivity.class);
+		// startActivity(intent);
 	}
 
 	private void makeList()
@@ -165,5 +182,23 @@ public class InActivity extends AppCompatActivity
 		// TODO: 12/16/2016 Find out may be need to send to privios Activity instde ? 
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if (resultCode == RESULT_OK)
+		{
+			switch (requestCode)
+			{
+
+			}
+		}
+		if (requestCode == 5)
+		{
+			Utilities.print(TAG, "Finished sending Email need to go back to Main Activity");
+			Intent intent = new Intent(InActivity.this, MainActivity.class);
+			startActivity(intent);
+		}
 	}
 }

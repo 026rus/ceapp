@@ -472,33 +472,27 @@ public class OutActivity extends AppCompatActivity
 						Utilities.print(TAG, "after pdf");
 
 						// sending the pdf by email !
+						// Utilities.sendEmail(OutActivity.this, correntMessege, new String[]{correntProject.getEmail(), managerEmail.getText().toString()}, pdfUri);
+						// Utilities.print(TAG, "Sending email to: " + correntProject.getEmail() + " and "+ managerEmail.getText().toString());
+						Utilities.print(TAG, "Sending Email at 44 ");
+
+						Intent intentout = new Intent(Intent.ACTION_SEND);
+						intentout.setType("image/png");
 						if (managerEmail != null)
-						{
-							// Utilities.sendEmail(OutActivity.this, correntMessege, new String[]{correntProject.getEmail(), managerEmail.getText().toString()}, pdfUri);
-							// Utilities.print(TAG, "Sending email to: " + correntProject.getEmail() + " and "+ managerEmail.getText().toString());
-							Utilities.print(TAG, "Sending Email at 44 ");
-
-							Intent intentout = new Intent(Intent.ACTION_SEND);
-							intentout.setType("image/png");
 							intentout.putExtra(Intent.EXTRA_EMAIL, new String[]{correntProject.getEmail(), managerEmail.getText().toString()});
-							intentout.putExtra(Intent.EXTRA_SUBJECT, "Checking out Store " + correntMessege.getSiteStoreNumber());
-							intentout.putExtra(Intent.EXTRA_TEXT, correntMessege.getOutMasseg());
-							intentout.putExtra(Intent.EXTRA_STREAM, pdfUri);
-							try
-							{
-								startActivityForResult(intentout, 5);
-								Utilities.print(TAG, "Email was sended sucsesefuly !");
-							} catch (ActivityNotFoundException e)
-							{
-								Toast.makeText(OutActivity.this, "There are no email clients installed.", Toast.LENGTH_LONG).show();
-								Utilities.print(TAG, "There are no email clients installed.");
-							}
-
-						}
 						else
+							intentout.putExtra(Intent.EXTRA_EMAIL, new String[]{correntProject.getEmail()});
+						intentout.putExtra(Intent.EXTRA_SUBJECT, "Checking out Store " + correntMessege.getSiteStoreNumber());
+						intentout.putExtra(Intent.EXTRA_TEXT, correntMessege.getOutMasseg());
+						intentout.putExtra(Intent.EXTRA_STREAM, pdfUri);
+						try
 						{
-							Utilities.sendEmail(OutActivity.this, correntMessege, new String[]{correntProject.getEmail()}, pdfUri);
-							Utilities.print(TAG, "Sending email to: " + correntProject.getEmail() + " and no one else !! :( ");
+							startActivityForResult(intentout, 5);
+							Utilities.print(TAG, "Email was sended sucsesefuly !");
+						} catch (ActivityNotFoundException e)
+						{
+							Toast.makeText(OutActivity.this, "There are no email clients installed.", Toast.LENGTH_LONG).show();
+							Utilities.print(TAG, "There are no email clients installed.");
 						}
 					}
 				});
