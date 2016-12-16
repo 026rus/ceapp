@@ -211,7 +211,7 @@ public class CheckoutPDF
 				{
 					Utilities.print(TAG, "entere for file # " + i + photofiles.get(i));
 				}
-				// TODO: 12/2/2016 fixe formating of the images puting in to the pdf
+				// here is the formate and size of the photos that going int to email
 				if (!photofiles.isEmpty())
 				{
 					Utilities.print(TAG, "Additing a photo");

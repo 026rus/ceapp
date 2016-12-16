@@ -54,7 +54,6 @@ public class SignatureActivity extends Activity
 		@Override
 		public void onClick(View v)
 		{
-			// TODO Auto-generated method stub
 			if (v == clear)
 			{
 				mSignature.clear();
@@ -134,17 +133,13 @@ public class SignatureActivity extends Activity
 			Display display = getWindowManager().getDefaultDisplay();
 			Point size = new Point();
 			display.getSize(size);
+			// set it up for scaling to diferent screens
 			int width = size.x;
 			int height = size.y;
 			int pw = width * 25 / 100;
 			int ph = height * 15 / 100;
 			int tsize = width * 10 / 100;
-			Utilities.print(TAG, "Width: " + width + " Height: " + height);
-			Utilities.print(TAG, "20 % of Width: " + pw + " 20 % of Height: " + ph);
-			Utilities.print(TAG, "Text size: " + tsize);
 
-			// TODO chenhe all the constant numners
-			// this do not scale to different scrinn sizes
 			setforwrit();
 			canvas.save();
 

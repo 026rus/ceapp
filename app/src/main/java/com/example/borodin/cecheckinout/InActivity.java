@@ -72,12 +72,11 @@ public class InActivity extends AppCompatActivity
 	{
 		// send email
 		Utilities.print(TAG, "Making email for check in !");
-		sendCheckOut();
+		sendCheckIn();
 	}
 
 
-	// TODO: 12/16/2016 change to in It is for Out now
-	private void sendCheckOut()
+	private void sendCheckIn()
 	{
 		StringBuilder sendmassege = new StringBuilder();
 		sendmassege.append("Progect : " + correntProject.getName() + Utilities.newline);
@@ -137,11 +136,6 @@ public class InActivity extends AppCompatActivity
 		{
 			Toast.makeText(InActivity.this , "There are no email clients installed.", Toast.LENGTH_SHORT).show();
 		}
-
-
-		// Utilities.print(TAG, "Finished sending Email need to go back to Main Activity");
-		// Intent intent = new Intent(InActivity.this, MainActivity.class);
-		// startActivity(intent);
 	}
 
 	private void makeList()

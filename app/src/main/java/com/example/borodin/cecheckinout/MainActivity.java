@@ -49,19 +49,14 @@ public class MainActivity extends AppCompatActivity
 	@Override
 	protected void onResume()
 	{
-		//todo  * check for updates !
 		// propose update if the local data base is older then one on the server
-		// SELECT table_name, auto_increment, update_time, check_time FROM information_schema.tables WHERE  table_schema = 'projects'
 		isDBcorent();
 		super.onResume();
 	}
 
 	private void isDBcorent()
 	{
-		// need to get table_names form server DB
-		// then if ( table_names.size != oldSize ) return false;
-		// then for each table in table_name
-		// 			if table.time_update != table[i].oldTime return false;
+		// Cheking for all tables in DB if the one on the phone is the same time that on ont the server
 		Utilities.print(TAG, "Starting isDBcorent ");
 
 		if(Utilities.isNetworkAvailable(this))
