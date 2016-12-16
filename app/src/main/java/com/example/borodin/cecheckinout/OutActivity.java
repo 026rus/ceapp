@@ -500,13 +500,6 @@ public class OutActivity extends AppCompatActivity
 							Utilities.sendEmail(OutActivity.this, correntMessege, new String[]{correntProject.getEmail()}, pdfUri);
 							Utilities.print(TAG, "Sending email to: " + correntProject.getEmail() + " and no one else !! :( ");
 						}
-						// TODO: 12/5/2016 Fixe first time email
-						// do not waite for user to select email client to send email and
-						// going strait to the text step wha is main Activity
-						// Intent intent = new Intent(OutActivity.this, MainActivity.class);
-						// startActivity(intent);
-						// Open pdf for tecting
-						// openmanfile(pdfUri.getPath());
 					}
 				});
 		alert.show();

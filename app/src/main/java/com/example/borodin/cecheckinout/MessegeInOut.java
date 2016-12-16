@@ -9,6 +9,7 @@ import java.util.ArrayList;
  */
 public class MessegeInOut implements Parcelable
 {
+	private static final String TAG = "MessageInOut_TEST";
 	public static final Integer ISCHEKET = 1;
 	public static final Integer ISNOTCHEKET = 0;
 	public static final Integer ISTEXT = 2;
@@ -21,6 +22,7 @@ public class MessegeInOut implements Parcelable
 	private String TechPhoneNumber;
 	private String TechLocation;
 	private String OutMasseg;
+	private String InMasseg;
 	private ArrayList<String> checklist;
 	private ArrayList<Integer> ischecked;
 	private ArrayList<String> filelist;
@@ -51,6 +53,7 @@ public class MessegeInOut implements Parcelable
 		TechPhoneNumber = in.readString();
 		TechLocation = in.readString();
 		OutMasseg = in.readString();
+		InMasseg  = in.readString();
 		checklist = in.readArrayList(String.class.getClassLoader());
 		ischecked = in.readArrayList(Boolean.class.getClassLoader());
 		filelist = in.readArrayList(String.class.getClassLoader());
@@ -89,6 +92,7 @@ public class MessegeInOut implements Parcelable
 		dest.writeString(TechPhoneNumber);
 		dest.writeString(TechLocation);
 		dest.writeString(OutMasseg);
+		dest.writeString(InMasseg);
 		dest.writeList(checklist);
 		dest.writeList(ischecked);
 		dest.writeList(filelist);
@@ -233,8 +237,11 @@ public class MessegeInOut implements Parcelable
 		OutMasseg = outMasseg;
 	}
 
+	public void setInMasseg(String inMasseg) {InMasseg = inMasseg;}
+
 	public String getCheckInMessage()
 	{
+		Utilities.print(TAG, "Call getCheckInMessage()");
 		String  ssn = (SiteStoreNumber == null) ? "" : SiteStoreNumber;
 		String 	sn	= (StoreName == null) ? "" : StoreName;
 		String 	pn 	= (ProjesctName == null) ? "" : ProjesctName;
@@ -242,13 +249,20 @@ public class MessegeInOut implements Parcelable
 		String 	tpn = (TechPhoneNumber == null) ? "" : TechPhoneNumber;
 
 		// TODO: 8/29/2016  find and delete/populete store name   
-		String retval = // not sure what is the for : - "Store Name:  " + sn + "\n" +
-				"Site/Store Number: " + ssn + "\n" +
-				"Project Name: "  + pn + "\n" +
-				"Tech Name: " + tn + "\n" +
-				"Tech Phone Number: " + tpn + "\n";
+		String retval =
+				// not sure what is the for : - "Store Name:  " + sn + Utilities.newline +
+				"Site/Store Number: " + ssn + Utilities.newline +
+				"Project Name: "  + pn + Utilities.newline +
+				"Tech Name: " + tn + Utilities.newline +
+				"Tech Phone Number: " + tpn + Utilities.newline;
 
-		retval += Utilities.getTimeZon() + "\n";
+		retval += "Aditing new massage DO NOT FORGOT TO DELET IT" + Utilities.newline;
+		if (InMasseg != null )
+			retval += InMasseg + Utilities.newline;
+		else
+			retval += "In is empty :( " + Utilities.newline;
+
+		retval += Utilities.getTimeZon() + Utilities.newline;
 		retval += Utilities.getTime();
 		Utilities.print("TEST", retval);
 		return retval;

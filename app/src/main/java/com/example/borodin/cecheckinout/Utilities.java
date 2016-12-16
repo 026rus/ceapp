@@ -66,7 +66,9 @@ public final class Utilities
 		switch (mod)
 		{
 			case Constants.CHECKIN:
+				Utilities.print(TAG, "getting the masege");
 				String sedMessage = mesg.getCheckInMessage();
+				Utilities.print(TAG, "Massage in: " + sedMessage);
 				Intent intent = new Intent(Intent.ACTION_SEND);
 				intent.setType("message/rfc822");
 				intent.putExtra(Intent.EXTRA_EMAIL, sto);

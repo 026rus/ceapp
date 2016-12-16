@@ -71,6 +71,7 @@ public class InActivity extends AppCompatActivity
 	{
 		// send email
 		Utilities.print(TAG, "Making email for check in !");
+		sendCheckOut();
 	}
 
 
@@ -82,7 +83,7 @@ public class InActivity extends AppCompatActivity
 		sendmassege.append("Site: " + correntMessege.getSiteStoreNumber() + Utilities.newline);
 
 		int childcount = inLayout.getChildCount();
-		for (int i = 0; i < childcount - 1; i++)
+		for (int i = 0; i < childcount; i++)
 		{
 			View view = inLayout.getChildAt(i);
 			if (view instanceof CheckBox)
@@ -90,11 +91,13 @@ public class InActivity extends AppCompatActivity
 				if (((CheckBox) view).isChecked())
 				{
 					sendmassege.append(((CheckBox) view).getText().toString() + " is complete" + Utilities.newline);
+					Utilities.print(TAG, ((CheckBox) view).getText().toString() + " is complete" + Utilities.newline);
 					String str = ((CheckBox) view).getText().toString() + " is complete" + Utilities.newline;
 					correntMessege.addChecklist(str, MessegeInOut.ISCHEKET);
 				} else
 				{
 					sendmassege.append(((CheckBox) view).getText().toString() + " is not complete" + Utilities.newline);
+					Utilities.print(TAG,((CheckBox) view).getText().toString() + " is not complete" + Utilities.newline);
 					String str = ((CheckBox) view).getText().toString() + " is not complete" + Utilities.newline;
 					correntMessege.addChecklist(str, MessegeInOut.ISNOTCHEKET);
 				}
@@ -114,10 +117,14 @@ public class InActivity extends AppCompatActivity
 						sendmassege.append(((TextView) inview).getText().toString());
 						String str = ((TextView) inview).getText().toString();
 						correntMessege.addChecklist(str, MessegeInOut.ISTEXTFILD);
+
 					}
 				}
 			}
 		}
+		Utilities.print(TAG, "InActivity email massage : " + sendmassege.toString());
+		correntMessege.setInMasseg(sendmassege.toString());
+		Utilities.sendEmail(InActivity.this, Constants.CHECKIN, correntMessege, new String[]{correntProject.getEmail()} );
 	}
 
 	private void makeList()
