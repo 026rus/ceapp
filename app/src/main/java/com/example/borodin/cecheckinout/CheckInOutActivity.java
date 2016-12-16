@@ -2,6 +2,7 @@ package com.example.borodin.cecheckinout;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -108,12 +109,6 @@ public class CheckInOutActivity extends AppCompatActivity implements OnFileDownl
 		messege.setTechPhoneNumber(preferences.getString("thech_phone", ""));
 	}
 
-
-	/* TODO: 12/12/2016 Add check for questiosn and chtck list on "Check IN" and if there is ont
-		then open new Activity to conform all the check boxs and then send the email. If not
-		then sen email with just basic "check in" information.
-	 */
-
 	public void onClickCheckIn (View v)
 	{
 		Utilities.print(TAG, "Check In button pressed!");
@@ -133,7 +128,7 @@ public class CheckInOutActivity extends AppCompatActivity implements OnFileDownl
 			Toast.makeText(this, "Problem with project Sorry ", Toast.LENGTH_SHORT).show();
 
 		if (correntQuestions == null || correntQuestions.isEmpty())
-			Utilities.print(TAG, "There is no CHeck IN questions for this project.");
+			sendEmailNoCheckList();
 
 		else
 		{
@@ -324,6 +319,39 @@ public class CheckInOutActivity extends AppCompatActivity implements OnFileDownl
 			}
 		});
 		dialog.show();
+	}
+	private void sendEmailNoCheckList()
+	{
+		StringBuilder sendmassege = new StringBuilder();
+		sendmassege.append("Progect : " + correntProject.getName() + Utilities.newline);
+		sendmassege.append("Site: " + messege.getSiteStoreNumber() + Utilities.newline);
+
+		messege.setInMasseg(sendmassege.toString());
+		Utilities.print(TAG, "getting the masege");
+		String sedMessage = messege.getCheckInMessage();
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("message/rfc822");
+		intent.putExtra(Intent.EXTRA_EMAIL, new String[]{correntProject.getEmail()});
+		intent.putExtra(Intent.EXTRA_SUBJECT, "Checking in Store " + messege.getSiteStoreNumber());
+		intent.putExtra(Intent.EXTRA_TEXT, sedMessage);
+		try
+		{
+			CheckInOutActivity.this.startActivityForResult(intent,5);
+		} catch (ActivityNotFoundException e)
+		{
+			Toast.makeText(CheckInOutActivity.this , "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if (requestCode == 5)
+		{
+			Utilities.print(TAG, "Finished sending Email need to go back to Main Activity");
+			Intent intent = new Intent(CheckInOutActivity.this, MainActivity.class);
+			startActivity(intent);
+		}
 	}
 
 }

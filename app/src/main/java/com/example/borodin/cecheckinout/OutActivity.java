@@ -359,14 +359,11 @@ public class OutActivity extends AppCompatActivity
 		}
 		if (requestCode == 5)
 		{
-			// Email sended
-			// TODO: 12/5/2016 Fixe first time email
-			// do not waite for user to select email client to send email and
-			// going strait to the text step wha is main Activity
+			// wait on user to send email befor start Main Activity ( go back to Main page )
 			Utilities.print(TAG, "Finished sending Email need to go back to Main Activity");
 			Intent intent = new Intent(OutActivity.this, MainActivity.class);
 			startActivity(intent);
-			// Open pdf for tecting
+			// Open pdf for testing
 			// openmanfile(pdfUri.getPath());
 		}
 	}
