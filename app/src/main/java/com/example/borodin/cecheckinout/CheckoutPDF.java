@@ -33,7 +33,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 /**
  * Created by borodin on 9/23/2016.
  */
@@ -74,10 +73,13 @@ public class CheckoutPDF
 		this.massege = massege;
 	}
 
-	public void testpdf2()
+	// making pdf
+	// TODO: 1/8/2017 need to delete firle after it was sended  
+	public void makePDF()
 	{
 		Document document = new Document();
-		filepath = Environment.getExternalStorageDirectory().getPath() + "/chektemp.pdf";
+		String pdfname = project.getName() + "_" + massege.getSiteStoreNumber();
+		filepath = Environment.getExternalStorageDirectory().getPath() + "/" + pdfname + ".pdf";
 		deletefiel(filepath);
 		try
 		{

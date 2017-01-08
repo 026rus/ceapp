@@ -492,7 +492,7 @@ public class OutActivity extends AppCompatActivity
 	{
 		CheckoutPDF mypdf = new CheckoutPDF(this, correntProject);
 		mypdf.setMassege(strmeseg);
-		mypdf.testpdf2();
+		mypdf.makePDF();
 		return Uri.fromFile(new File(mypdf.getFilepath()));
 
 	}
