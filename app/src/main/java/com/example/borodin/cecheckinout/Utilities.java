@@ -39,67 +39,6 @@ public final class Utilities
 		return true;
 	}
 
-	// cant find wat to conform that email was sended !
-	// public static void sendEmail(Context context, MessegeInOut mesg, String[] sto, Uri signature)
-	// {
-	// 	Utilities.print(TAG, "Sending Email at 44 ");
-
-	// 	Intent intentout = new Intent(Intent.ACTION_SEND);
-	// 	intentout.setType("image/png");
-	// 	intentout.putExtra(Intent.EXTRA_EMAIL, sto);
-	// 	intentout.putExtra(Intent.EXTRA_SUBJECT, "Checking out Store " + mesg.getSiteStoreNumber());
-	// 	intentout.putExtra(Intent.EXTRA_TEXT, mesg.getOutMasseg());
-	// 	intentout.putExtra(Intent.EXTRA_STREAM, signature);
-	// 	try
-	// 	{
-	// 		context.startActivity(intentout);
-	// 		Utilities.print(TAG, "Email was sended sucsesefuly !");
-	// 	} catch (ActivityNotFoundException e)
-	// 	{
-	// 		Toast.makeText(context, "There are no email clients installed.", Toast.LENGTH_LONG).show();
-	// 		Utilities.print(TAG, "There are no email clients installed.");
-	// 	}
-	// }
-
-	// public static void sendEmail(Context context, int mod, MessegeInOut mesg, String[] sto)
-	// {
-	// 	Utilities.print(TAG, "Sending email coled sendEmail from Utilitis");
-	// 	switch (mod)
-	// 	{
-	// 		case Constants.CHECKIN:
-	// 			Utilities.print(TAG, "getting the masege");
-	// 			String sedMessage = mesg.getCheckInMessage();
-	// 			Utilities.print(TAG, "Massage in: " + sedMessage);
-	// 			Intent intent = new Intent(Intent.ACTION_SEND);
-	// 			intent.setType("message/rfc822");
-	// 			intent.putExtra(Intent.EXTRA_EMAIL, sto);
-	// 			intent.putExtra(Intent.EXTRA_SUBJECT, "Checking in Store " + mesg.getSiteStoreNumber());
-	// 			intent.putExtra(Intent.EXTRA_TEXT, sedMessage);
-	// 			try
-	// 			{
-
-	// 				context.startActivity(intent);
-	// 			} catch (ActivityNotFoundException e)
-	// 			{
-	// 				Toast.makeText(context, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-	// 			}
-	// 			break;
-	// 		case Constants.CHECKOUT:
-	// 			Intent intentout = new Intent(Intent.ACTION_SEND);
-	// 			intentout.setType("message/rfc822");
-	// 			intentout.putExtra(Intent.EXTRA_EMAIL, sto);
-	// 			intentout.putExtra(Intent.EXTRA_SUBJECT, "Checking out Store " + mesg.getSiteStoreNumber());
-	// 			intentout.putExtra(Intent.EXTRA_TEXT, mesg.getOutMasseg());
-	// 			try
-	// 			{
-	// 				context.startActivity(intentout);
-	// 			} catch (ActivityNotFoundException e)
-	// 			{
-	// 				Toast.makeText(context, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-	// 			}
-	// 			break;
-	// 	}
-	// }
 
 	public static String getTimeZon()
 	{
@@ -203,5 +142,11 @@ public final class Utilities
 		cursor.moveToFirst();
 		int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
 		return cursor.getString(idx);
+	}
+
+	public static String makeFileNmae(String str)
+	{
+		String result = str.replaceAll("[|?*<\":>+\\[\\]/']", "_");
+		return result;
 	}
 }

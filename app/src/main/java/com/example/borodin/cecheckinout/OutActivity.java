@@ -185,15 +185,17 @@ public class OutActivity extends AppCompatActivity
 					img.setLayoutParams(params);
 					img.setImageResource(R.drawable.ic_hplogo);
 
+					final String photoname_btn = correntQuestions.get(i).getQestion();
 					Button btn = new Button(this);
-					btn.setText(correntQuestions.get(i).getQestion());
+					btn.setText(photoname_btn);
 					btn.setEnabled(true);
 					btn.setOnClickListener(new View.OnClickListener()
 					{
 						@Override
 						public void onClick(View v)
 						{
-							addPhoto(img);
+							// TODO: 1/8/2017 pass the button name here
+							addPhoto(img, photoname_btn);
 						}
 					});
 
@@ -217,7 +219,7 @@ public class OutActivity extends AppCompatActivity
 			Toast.makeText(this, "Problem with Questions Sorry ", Toast.LENGTH_SHORT).show();
 	}
 
-	private void addPhoto(ImageView img)
+	private void addPhoto(ImageView img, String photoname)
 	{
 		tempImageView = img;
 		int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
@@ -227,15 +229,16 @@ public class OutActivity extends AppCompatActivity
 		}
 		if (permission == PackageManager.PERMISSION_GRANTED)
 		{
-			selectImage();
+			selectImage(photoname);
 		} else
 		{
 			Utilities.print(TAG, "Permission not granted!!!");
 		}
 	}
 
-	private void selectImage()
+	private void selectImage(String strphotoname)
 	{
+		final String photoName = Utilities.makeFileNmae(strphotoname);
 
 		final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
 
@@ -249,7 +252,7 @@ public class OutActivity extends AppCompatActivity
 				if (options[item].equals("Take Photo"))
 				{
 					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
+					File f = new File(android.os.Environment.getExternalStorageDirectory(), photoName + ".jpg");
 					intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
 					startActivityForResult(intent, 3);
 				} else if (options[item].equals("Choose from Gallery"))
@@ -285,6 +288,7 @@ public class OutActivity extends AppCompatActivity
 					File f = new File(Environment.getExternalStorageDirectory().toString());
 					for (File temp : f.listFiles())
 					{
+						Utilities.print(TAG, "Taking the file : " + temp.getName() );
 						if (temp.getName().equals("temp.jpg"))
 						{
 							f = temp;
@@ -313,7 +317,8 @@ public class OutActivity extends AppCompatActivity
 						// deleting temp file
 						f.delete();
 						OutputStream outFile = null;
-						String tempphotofilename = String.valueOf(System.currentTimeMillis()) + ".jpg";
+						// String tempphotofilename = String.valueOf(System.currentTimeMillis()) + ".jpg";
+						String tempphotofilename = String.valueOf( + ".jpg";
 						File file = new File(path, tempphotofilename);
 						try
 						{
@@ -363,6 +368,7 @@ public class OutActivity extends AppCompatActivity
 			Utilities.print(TAG, "Finished sending Email need to go back to Main Activity");
 			Intent intent = new Intent(OutActivity.this, MainActivity.class);
 			startActivity(intent);
+		/*****************************************************************************************/
 			// Open pdf for testing
 			// openmanfile(pdfUri.getPath());
 		}
