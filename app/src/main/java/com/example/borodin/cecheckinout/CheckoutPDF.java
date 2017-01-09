@@ -204,6 +204,7 @@ public class CheckoutPDF
 			document.add(img);
 
 			ArrayList<String> photofiles = massege.getFilelist();
+			ArrayList<String> photofilesnames = massege.getFilelistnames();
 			if ( photofiles != null && photofiles.size() > 0 )
 			{
 				Utilities.print(TAG, "The number of files is: " + photofiles.size());
@@ -211,7 +212,7 @@ public class CheckoutPDF
 				else  Utilities.print(TAG, "photfile is not empty!");
 				for (int i=0; i< photofiles.size(); i++)
 				{
-					Utilities.print(TAG, "entere for file # " + i + photofiles.get(i));
+					Utilities.print(TAG, "entere for file # " + i + photofiles.get(i) + " With name : " + photofilesnames.get(i));
 				}
 				// here is the formate and size of the photos that going int to email
 				if (!photofiles.isEmpty())

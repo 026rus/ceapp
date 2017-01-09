@@ -26,6 +26,7 @@ public class MessegeInOut implements Parcelable
 	private ArrayList<String> checklist;
 	private ArrayList<Integer> ischecked;
 	private ArrayList<String> filelist;
+	private ArrayList<String> filelistnames;
 	private String signatur;
 	private String TimeOut;
 
@@ -40,6 +41,7 @@ public class MessegeInOut implements Parcelable
 		checklist = null;
 		ischecked = null;
 		filelist = null;
+		filelistnames = null;
 		signatur = null;
 		TimeOut = null;
 	}
@@ -57,6 +59,7 @@ public class MessegeInOut implements Parcelable
 		checklist = in.readArrayList(String.class.getClassLoader());
 		ischecked = in.readArrayList(Boolean.class.getClassLoader());
 		filelist = in.readArrayList(String.class.getClassLoader());
+		filelistnames = in.readArrayList(String.class.getClassLoader());
 		signatur = in.readString();
 		TimeOut = in.readString();
 	}
@@ -96,19 +99,23 @@ public class MessegeInOut implements Parcelable
 		dest.writeList(checklist);
 		dest.writeList(ischecked);
 		dest.writeList(filelist);
+		dest.writeList(filelistnames);
 		dest.writeString(signatur);
 		dest.writeString(TimeOut);
 	}
-	public void addFile(String str)
+	public void addFile(String str, String name)
 	{
-		if (filelist != null)
+		if (filelist != null && name != null)
 		{
 			filelist.add(str);
+			filelistnames.add(name);
 		}
 		else
 		{
 			filelist = new ArrayList<>();
+			filelistnames = new ArrayList<>();
 			filelist.add(str);
+			filelistnames.add(name);
 		}
 	}
 
@@ -203,9 +210,19 @@ public class MessegeInOut implements Parcelable
 		return filelist;
 	}
 
+	public ArrayList<String> getFilelistnames()
+	{
+		return filelistnames;
+	}
+
 	public void setFilelist(ArrayList<String> filelist)
 	{
 		this.filelist = filelist;
+	}
+
+	public void setFilelistnames(ArrayList<String> filelistnames)
+	{
+		this.filelistnames = filelistnames;
 	}
 
 	public String getSignatur()

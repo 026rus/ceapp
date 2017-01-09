@@ -48,6 +48,7 @@ public class OutActivity extends AppCompatActivity
 	private SQLiteDatabase db;
 	private ProjectSQLiteOpenHelper dbhelper;
 	private ImageView tempImageView = null;
+	private Button tempButton = null;
 	private EditText managerEmail = null;
 	private EditText managerName = null;
 	private Switch switchmanagercopy = null;
@@ -195,8 +196,11 @@ public class OutActivity extends AppCompatActivity
 						public void onClick(View v)
 						{
 							// TODO: 1/8/2017 pass the button name here
-							addPhoto(img, photoname_btn);
+							tempButton = (Button)v;
+							addPhoto(img);
+							if (v instanceof  Button) Utilities.print(TAG, "It is the BUTTON!!!");
 						}
+
 					});
 
 					ll.addView(btn);
@@ -210,7 +214,7 @@ public class OutActivity extends AppCompatActivity
 			managerName = new EditText(this);
 			managerName.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT));
 			LinearLayout templl = new LinearLayout(this);
-			temptext.setText("Manager Name: ");
+			temptext.setText("Customer Contact: ");
 			templl.addView(temptext);
 			templl.addView(managerName);
 			outLayout.addView(templl);
@@ -219,7 +223,7 @@ public class OutActivity extends AppCompatActivity
 			Toast.makeText(this, "Problem with Questions Sorry ", Toast.LENGTH_SHORT).show();
 	}
 
-	private void addPhoto(ImageView img, String photoname)
+	private void addPhoto(ImageView img)
 	{
 		tempImageView = img;
 		int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
@@ -229,16 +233,15 @@ public class OutActivity extends AppCompatActivity
 		}
 		if (permission == PackageManager.PERMISSION_GRANTED)
 		{
-			selectImage(photoname);
+			selectImage();
 		} else
 		{
 			Utilities.print(TAG, "Permission not granted!!!");
 		}
 	}
 
-	private void selectImage(String strphotoname)
+	private void selectImage()
 	{
-		final String photoName = Utilities.makeFileNmae(strphotoname);
 
 		final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
 
@@ -252,7 +255,7 @@ public class OutActivity extends AppCompatActivity
 				if (options[item].equals("Take Photo"))
 				{
 					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					File f = new File(android.os.Environment.getExternalStorageDirectory(), photoName + ".jpg");
+					File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
 					intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
 					startActivityForResult(intent, 3);
 				} else if (options[item].equals("Choose from Gallery"))
@@ -288,7 +291,6 @@ public class OutActivity extends AppCompatActivity
 					File f = new File(Environment.getExternalStorageDirectory().toString());
 					for (File temp : f.listFiles())
 					{
-						Utilities.print(TAG, "Taking the file : " + temp.getName() );
 						if (temp.getName().equals("temp.jpg"))
 						{
 							f = temp;
@@ -317,8 +319,7 @@ public class OutActivity extends AppCompatActivity
 						// deleting temp file
 						f.delete();
 						OutputStream outFile = null;
-						// String tempphotofilename = String.valueOf(System.currentTimeMillis()) + ".jpg";
-						String tempphotofilename = String.valueOf( + ".jpg";
+						String tempphotofilename = String.valueOf(System.currentTimeMillis()) + ".jpg";
 						File file = new File(path, tempphotofilename);
 						try
 						{
@@ -337,7 +338,7 @@ public class OutActivity extends AppCompatActivity
 							e.printStackTrace();
 						}
 						Utilities.print(TAG, " Taking Photo with name: " + file.getPath() );
-						correntMessege.addFile(path+"/"+tempphotofilename);
+						correntMessege.addFile(path+"/"+tempphotofilename, tempButton.getText().toString());
 					} catch (Exception e)
 					{
 						e.printStackTrace();
@@ -353,7 +354,7 @@ public class OutActivity extends AppCompatActivity
 					c.close();
 					Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
 					Utilities.print(TAG, "path of image from gallery: " + picturePath + "");
-					correntMessege.addFile(picturePath);
+					correntMessege.addFile(picturePath, tempButton.getText().toString());
 					if (tempImageView != null)
 					{
 						Bitmap profileImage = Bitmap.createScaledBitmap(thumbnail, 220, 220, true);
