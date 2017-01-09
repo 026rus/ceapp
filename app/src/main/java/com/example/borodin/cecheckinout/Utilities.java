@@ -49,9 +49,9 @@ public final class Utilities
 	public static String getTime()
 	{
 		Calendar c = Calendar.getInstance();
-		int seconds = c.get(Calendar.SECOND);
 		int mint = c.get(Calendar.MINUTE);
-		int hour = c.get(Calendar.HOUR);
+		//int hour = c.get(Calendar.HOUR);
+		int hour = c.get(Calendar.HOUR_OF_DAY);
 		int day = c.get(Calendar.DAY_OF_MONTH);
 		int month = c.get(Calendar.MONTH);
 		int year = c.get(Calendar.YEAR);
@@ -129,12 +129,11 @@ public final class Utilities
 		if (mint < 10) strmin = "0" + mint;
 		else strmin = "" + mint;
 
-		String strsec = "";
-		if (seconds < 10) strsec = "0" + seconds;
-		else strsec = "" + seconds;
+		String strhour = "";
+		if (hour < 10) strhour = "0" + hour;
+		else strhour = "" + hour;
 
-		// TODO: 1/9/2017 make sure the time in 24 format  
-		return strweek + " " + strMonth + " " + day + " " + year + "   " + hour + ":" + strmin;
+		return strweek + " " + strMonth + " " + day + " " + year + "   " + strhour + ":" + strmin;
 	}
 
 	public static String getRealPathFromURI(Context context, Uri uri)

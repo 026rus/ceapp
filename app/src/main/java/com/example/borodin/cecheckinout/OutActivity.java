@@ -446,15 +446,23 @@ public class OutActivity extends AppCompatActivity
 						correntMessege.addChecklist(str, MessegeInOut.ISTEXT );
 					} else if (inview instanceof TextView)
 					{
-						sendmassege.append(((TextView) inview).getText().toString());
-						String str = ((TextView) inview).getText().toString();
-						correntMessege.addChecklist(str, MessegeInOut.ISTEXTFILD );
+						if ( inview instanceof  Button)
+						{
+							// caching Photo buttons from text view.
+							Utilities.print(TAG, "It is the Button for Photo: " + ((Button) inview).getText().toString() );
+						}
+						else
+						{
+							sendmassege.append(((TextView) inview).getText().toString());
+							String str = ((TextView) inview).getText().toString();
+							correntMessege.addChecklist(str, MessegeInOut.ISTEXTFILD );
+						}
 					}
 				}
 			}
 		}
 		// TODO: 8/29/2016  Need to move this thing to beter plse.
-		sendmassege.append(Utilities.getTimeZon());
+		sendmassege.append("\n" + Utilities.getTimeZon());
 		String timenow = Utilities.getTime();
 		sendmassege.append(": " + timenow);
 		correntMessege.setTimeOut(timenow);
