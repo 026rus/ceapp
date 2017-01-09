@@ -133,7 +133,8 @@ public final class Utilities
 		if (seconds < 10) strsec = "0" + seconds;
 		else strsec = "" + seconds;
 
-		return strweek + " " + strMonth + " " + day + " " + year + "   " + hour + ":" + strmin + ":" + strsec;
+		// TODO: 1/9/2017 make sure the time in 24 format  
+		return strweek + " " + strMonth + " " + day + " " + year + "   " + hour + ":" + strmin;
 	}
 
 	public static String getRealPathFromURI(Context context, Uri uri)
