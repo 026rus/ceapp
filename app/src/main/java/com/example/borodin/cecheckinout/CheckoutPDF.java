@@ -15,6 +15,7 @@ import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 
 import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -36,7 +37,7 @@ import java.util.ArrayList;
 /**
  * Created by borodin on 9/23/2016.
  */
-
+// TODO: 1/9/2017 Need to delete pdf file at some point ! 
 public class CheckoutPDF
 {
 	// Storage Permissions
@@ -203,28 +204,56 @@ public class CheckoutPDF
 			Image img = resizeBitmap(massege.getSignatur(), 100, 100, true);
 			document.add(img);
 
+			// additin photos!
+			document.newPage();
 			ArrayList<String> photofiles = massege.getFilelist();
 			ArrayList<String> photofilesnames = massege.getFilelistnames();
-			if ( photofiles != null && photofiles.size() > 0 )
+			if (photofiles.size() > 0)
 			{
-				Utilities.print(TAG, "The number of files is: " + photofiles.size());
-				if (photofiles.isEmpty()) Utilities.print(TAG, "photofile is empty !");
-				else  Utilities.print(TAG, "photfile is not empty!");
-				for (int i=0; i< photofiles.size(); i++)
+				PdfPTable tablePhotos = new PdfPTable(1);
+				// tablePhotos.setSpacingBefore(100);
+				// tablePhotos.setSpacingAfter(100);
+				PdfPCell photocell;
+
+				if ( photofiles != null && photofiles.size() > 0 )
 				{
-					Utilities.print(TAG, "entere for file # " + i + photofiles.get(i) + " With name : " + photofilesnames.get(i));
-				}
-				// here is the formate and size of the photos that going int to email
-				if (!photofiles.isEmpty())
-				{
-					Utilities.print(TAG, "Additing a photo");
-					for (String photo: photofiles)
+					Utilities.print(TAG, "The number of files is: " + photofiles.size());
+					if (photofiles.isEmpty()) Utilities.print(TAG, "photofile is empty !");
+					else  Utilities.print(TAG, "photfile is not empty!");
+					for (int i=0; i< photofiles.size(); i++)
 					{
-						Utilities.print(TAG, "Additing photo: " + photo);
-						Image tempphotoinmg = resizeBitmap(photo, 200, 200, false);
-						document.add(tempphotoinmg);
+						Utilities.print(TAG, "entere for file # " + i + photofiles.get(i) + " With name : " + photofilesnames.get(i));
 					}
-				}
+					// here is the formate and size of the photos that going int to email
+					if (!photofiles.isEmpty())
+					{
+						Utilities.print(TAG, "Additing a photo");
+						// for (String photo: photofiles)
+						for (int i=0; i< photofiles.size(); i++)
+						{
+							// Label for the photo
+							photocell = new PdfPCell(new Phrase(photofilesnames.get(i).toString()));
+							photocell.setBorder(Rectangle.NO_BORDER);
+							photocell.setHorizontalAlignment(Element.ALIGN_CENTER);
+							tablePhotos.addCell(photocell);
+
+							// Photo for the project
+							Utilities.print(TAG, "Auditing photo: " + photofiles.get(i));
+							Image tempphotoinmg = resizeBitmap(photofiles.get(i), 100, 100, false);
+							//document.add(tempphotoinmg);
+							photocell = new PdfPCell(tempphotoinmg);
+							photocell.setBorder(Rectangle.NO_BORDER);
+							photocell.setHorizontalAlignment(Element.ALIGN_CENTER);
+							tablePhotos.addCell(photocell);
+
+							// just a space
+							photocell = new PdfPCell(new Phrase("  "));
+							photocell.setBorder(Rectangle.BOTTOM);
+							tablePhotos.addCell(photocell);
+						}
+					}
+					document.add(tablePhotos);
+			}
 			}
 		} catch (DocumentException e)
 		{
