@@ -75,22 +75,33 @@ public class MainActivity extends AppCompatActivity
 
 		setVew();
 		setlisteners();
-		testUserInfo();
+		getUserInfo();
 
 		if (isFirstTime()) firstTimeInit();
 	}
 
-	private void testUserInfo()
+	private void getUserInfo()
 	{
-		Cursor c = getApplication().getContentResolver().query(ContactsContract.Profile.CONTENT_URI, null, null, null, null);
-		c.moveToFirst();
-		Utilities.print(TAG, "User name : " + c.getString(c.getColumnIndex("display_name")));
-		c.close();
+		// TODO: 1/27/2017 On new Android can't ger user nama and phone number.
+		// Becouse of new Android ( 6 ) permission asked on the go so need to work around for user info.
+		try
+		{
+			Cursor c = getApplication().getContentResolver().query(ContactsContract.Profile.CONTENT_URI, null, null, null, null);
+			c.moveToFirst();
+			String mUserName = c.getString(c.getColumnIndex("display_name"));
 
-		TelephonyManager t = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
-		String mPhoneNumber = t.getLine1Number();
+			Utilities.print(TAG, "User name : " + mUserName);
+			c.close();
 
-		Utilities.print(TAG, "User phone number: " + mPhoneNumber);
+			TelephonyManager t = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
+			String mPhoneNumber = t.getLine1Number();
+
+			Utilities.print(TAG, "User phone number: " + mPhoneNumber);
+		}
+		catch (Exception e)
+		{
+			Utilities.print(TAG, "Can not determine User name and phone number! Sorry");
+		}
 
 	}
 
