@@ -1,9 +1,15 @@
 package com.example.borodin.cecheckinout;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +25,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 
+// TODO: 1/15/2017 check for internet avalebility  
 public class MainActivity extends AppCompatActivity
 {
 	private final static String TAG = "MainActivity_TEST";
@@ -31,6 +38,7 @@ public class MainActivity extends AppCompatActivity
 	private Menu main_menu;
 
 	private boolean isUptodate;
+	private boolean isOnline;
 	private checkDBForUpdates chekForUp;
 
     @Override
@@ -40,11 +48,43 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 		isUptodate = false;
+		isOnline = isOnlinecheck();
+		if (!isOnline)
+		{
+			Utilities.print(TAG, "There is no Internet !!!");
+			AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+			dlgAlert.setMessage("This is an alert with no consequence");
+			dlgAlert.setTitle("App Title");
+			dlgAlert.setPositiveButton("OK", null);
+			dlgAlert.setCancelable(true);
+			dlgAlert.setPositiveButton("Ok",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							//dismiss the dialog
+						}
+					});
+			dlgAlert.create().show();
+		}
+		else
+			Utilities.print(TAG, "Internet connection detected !");
+
 		setVew();
 		setlisteners();
 
 		if (isFirstTime()) firstTimeInit();
     }
+
+	private boolean isOnlinecheck()
+	{
+		ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+		if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+				connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED)
+		{
+			return true;
+		}
+		else
+			return false;
+	}
 
 	@Override
 	protected void onResume()

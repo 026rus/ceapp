@@ -112,7 +112,7 @@ public class SyncSQLDB extends AsyncTask<String, Integer, String>
 			{
 				e.printStackTrace();
 			}
-			db.close();
+			if (db != null ) db.close();
 		}
 		listener.dataUpToDate();
 	}
@@ -144,7 +144,7 @@ public class SyncSQLDB extends AsyncTask<String, Integer, String>
 			{
 				e.printStackTrace();
 			}
-			db.close();
+			if (db != null ) db.close();
 		}
 	}
 
@@ -180,7 +180,7 @@ public class SyncSQLDB extends AsyncTask<String, Integer, String>
 			{
 				e.printStackTrace();
 			}
-			db.close();
+			if (db != null ) db.close();
 		}
 	}
 }
