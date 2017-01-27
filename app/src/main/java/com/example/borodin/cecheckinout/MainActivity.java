@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -41,48 +42,48 @@ public class MainActivity extends AppCompatActivity
 	private boolean isOnline;
 	private checkDBForUpdates chekForUp;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
 
 		isUptodate = false;
 		isOnline = isOnlinecheck();
 		if (!isOnline)
 		{
 			Utilities.print(TAG, "There is no Internet !!!");
-			AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+			AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
 			dlgAlert.setMessage("This is an alert with no consequence");
 			dlgAlert.setTitle("App Title");
 			dlgAlert.setPositiveButton("OK", null);
 			dlgAlert.setCancelable(true);
 			dlgAlert.setPositiveButton("Ok",
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
+					new DialogInterface.OnClickListener()
+					{
+						public void onClick(DialogInterface dialog, int which)
+						{
 							//dismiss the dialog
 						}
 					});
 			dlgAlert.create().show();
-		}
-		else
+		} else
 			Utilities.print(TAG, "Internet connection detected !");
 
 		setVew();
 		setlisteners();
 
 		if (isFirstTime()) firstTimeInit();
-    }
+	}
 
 	private boolean isOnlinecheck()
 	{
-		ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-		if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
 				connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED)
 		{
 			return true;
-		}
-		else
+		} else
 			return false;
 	}
 
@@ -99,10 +100,10 @@ public class MainActivity extends AppCompatActivity
 		// Cheking for all tables in DB if the one on the phone is the same time that on ont the server
 		Utilities.print(TAG, "Starting isDBcorent ");
 
-		if(Utilities.isNetworkAvailable(this))
+		if (Utilities.isNetworkAvailable(this))
 		{
 			chekForUp = new checkDBForUpdates(this, progressBar, listener);
-			chekForUp.execute(getString(R.string.api_update) );
+			chekForUp.execute(getString(R.string.api_update));
 		}
 	}
 
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		return preferences.getBoolean("FirstTime", true);
 	}
+
 	private void firstTimeInit()
 	{
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -208,22 +210,22 @@ public class MainActivity extends AppCompatActivity
 		}
 		Collections.sort(projects, new ProjectComparator());
 		String[] Arr = new String[projects.size()];
-		for (int i=0; i < Arr.length; i++)
+		for (int i = 0; i < Arr.length; i++)
 			Arr[i] = projects.get(i).getName();
 		int sizeOfprojects = 0;
 		if (projects.size() > 0)
-			sizeOfprojects = projects.size()-1;
+			sizeOfprojects = projects.size() - 1;
 
 		final Dialog dialog = new Dialog(MainActivity.this);
 		dialog.setTitle("Choose a Project");
 		dialog.setContentView(R.layout.project_chooser_dialog);
-		final NumberPicker projectchooser = (NumberPicker)dialog.findViewById(R.id.projectPicker);
+		final NumberPicker projectchooser = (NumberPicker) dialog.findViewById(R.id.projectPicker);
 		projectchooser.setMinValue(0);
 		projectchooser.setMaxValue(sizeOfprojects);
 		projectchooser.setDisplayedValues(Arr);
 
-		Button ok = (Button)dialog.findViewById(R.id.button_set);
-		Button cancel = (Button)dialog.findViewById(R.id.button_cancel);
+		Button ok = (Button) dialog.findViewById(R.id.button_set);
+		Button cancel = (Button) dialog.findViewById(R.id.button_cancel);
 
 		ok.setOnClickListener(new View.OnClickListener()
 		{
@@ -248,15 +250,16 @@ public class MainActivity extends AppCompatActivity
 		});
 		dialog.show();
 	}
+
 	public void showSiteChooser()
 	{
 		final Dialog dialog = new Dialog(MainActivity.this);
 		dialog.setTitle(R.string.siteChooserTitlel);
 		dialog.setContentView(R.layout.site_chooser_dialog);
-		final EditText sitechooser = (EditText)dialog.findViewById(R.id.site_choser);
+		final EditText sitechooser = (EditText) dialog.findViewById(R.id.site_choser);
 
-		Button ok = (Button)dialog.findViewById(R.id.site_choser_button_set);
-		Button cancel = (Button)dialog.findViewById(R.id.site_choser_button_cancel);
+		Button ok = (Button) dialog.findViewById(R.id.site_choser_button_set);
+		Button cancel = (Button) dialog.findViewById(R.id.site_choser_button_cancel);
 
 		ok.setOnClickListener(new View.OnClickListener()
 		{
@@ -283,6 +286,7 @@ public class MainActivity extends AppCompatActivity
 		dialog.show();
 
 	}
+
 	private class DataCopliteList implements OnDataUptaded
 	{
 		@Override
@@ -295,9 +299,11 @@ public class MainActivity extends AppCompatActivity
 		@Override
 		public void checkFinished(boolean isUp)
 		{
-			if (!isUp) main_menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_action_refresh_red));
-			else main_menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_action_refresh));
-			isUptodate  = chekForUp.isuptodate;
+			if (!isUp)
+				main_menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_action_refresh_red));
+			else
+				main_menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_action_refresh));
+			isUptodate = chekForUp.isuptodate;
 		}
 	}
 }
