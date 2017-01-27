@@ -84,25 +84,41 @@ public class MainActivity extends AppCompatActivity
 	{
 		// TODO: 1/27/2017 On new Android can't ger user nama and phone number.
 		// Becouse of new Android ( 6 ) permission asked on the go so need to work around for user info.
+		String mUserName = null;
+		String mPhoneNumber = null;
 		try
 		{
 			Cursor c = getApplication().getContentResolver().query(ContactsContract.Profile.CONTENT_URI, null, null, null, null);
 			c.moveToFirst();
-			String mUserName = c.getString(c.getColumnIndex("display_name"));
-
-			Utilities.print(TAG, "User name : " + mUserName);
+			mUserName = c.getString(c.getColumnIndex("display_name"));
 			c.close();
-
-			TelephonyManager t = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
-			String mPhoneNumber = t.getLine1Number();
-
-			Utilities.print(TAG, "User phone number: " + mPhoneNumber);
 		}
 		catch (Exception e)
 		{
-			Utilities.print(TAG, "Can not determine User name and phone number! Sorry");
+			Utilities.print(TAG, "Can not determine User name! Sorry");
 		}
 
+		try
+		{
+			TelephonyManager t = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
+			mPhoneNumber = t.getLine1Number();
+			if (mPhoneNumber != null)
+			{
+				char code = mPhoneNumber.charAt(0);
+				if (code == '1') mPhoneNumber = String.valueOf(mPhoneNumber).replaceFirst("(\\d{1})(\\d{3})(\\d{3})(\\d+)", "$1($2)-$3-$4");
+				else 			 mPhoneNumber = String.valueOf(mPhoneNumber).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "1($1)-$2-$3");
+			}
+		}
+		catch (Exception e)
+		{
+			Utilities.print(TAG, "Can not determine phone number! Sorry");
+		}
+
+		if (mPhoneNumber != null && mUserName != null)
+		{
+			Utilities.print(TAG, "User name : " + mUserName);
+			Utilities.print(TAG, "User phone number: " + mPhoneNumber);
+		}
 	}
 
 	private boolean isOnlinecheck()
