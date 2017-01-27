@@ -6,13 +6,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -72,8 +75,23 @@ public class MainActivity extends AppCompatActivity
 
 		setVew();
 		setlisteners();
+		testUserInfo();
 
 		if (isFirstTime()) firstTimeInit();
+	}
+
+	private void testUserInfo()
+	{
+		Cursor c = getApplication().getContentResolver().query(ContactsContract.Profile.CONTENT_URI, null, null, null, null);
+		c.moveToFirst();
+		Utilities.print(TAG, "User name : " + c.getString(c.getColumnIndex("display_name")));
+		c.close();
+
+		TelephonyManager t = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
+		String mPhoneNumber = t.getLine1Number();
+
+		Utilities.print(TAG, "User phone number: " + mPhoneNumber);
+
 	}
 
 	private boolean isOnlinecheck()
