@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 
 import com.itextpdf.text.BadElementException;
@@ -75,7 +77,7 @@ public class CheckoutPDF
 	}
 
 	// making pdf
-	// TODO: 1/8/2017 need to delete firle after it was sended  
+	// TODO: 1/8/2017 need to delete file after it was sanded
 	public void makePDF()
 	{
 		Document document = new Document();
@@ -253,7 +255,18 @@ public class CheckoutPDF
 						}
 					}
 					document.add(tablePhotos);
-			}
+				}
+				SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+				String mUserName = preferences.getString(context.getResources().getString(R.string.pref_saved_name), null);
+				String mPhoneNumber = preferences.getString(context.getResources().getString(R.string.pref_saved_phone_number), null);
+
+				if (mPhoneNumber != null && mUserName != null)
+				{
+					// TODO: 1/27/2017 add new page with CE information  
+					document.newPage();
+					
+				}
+
 			}
 		} catch (DocumentException e)
 		{
