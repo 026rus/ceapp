@@ -260,13 +260,34 @@ public class CheckoutPDF
 				String mUserName = preferences.getString(context.getResources().getString(R.string.pref_saved_name), null);
 				String mPhoneNumber = preferences.getString(context.getResources().getString(R.string.pref_saved_phone_number), null);
 
-				if (mPhoneNumber != null && mUserName != null)
+				Utilities.print(TAG, "\t Suposto start additing CE info");
+				if (mPhoneNumber != null || mUserName != null)
 				{
+					Utilities.print(TAG, "\t Making new page for CE info");
 					// TODO: 1/27/2017 add new page with CE information  
 					document.newPage();
-					
+					PdfPTable tableCEinfo = new PdfPTable(1);
+					// tablePhotos.setSpacingBefore(100);
+					// tablePhotos.setSpacingAfter(100);
+					PdfPCell CEinfocell;
+					if(mPhoneNumber != null)
+					{
+						Utilities.print(TAG, "aditing CE Phone number");
+						CEinfocell = new PdfPCell(new Phrase(mPhoneNumber.toString()));
+						CEinfocell.setBorder(Rectangle.NO_BORDER);
+						CEinfocell.setHorizontalAlignment(Element.ALIGN_CENTER);
+						tableCEinfo.addCell(CEinfocell);
+					}
+					if(mUserName != null)
+					{
+						Utilities.print(TAG, "additing CE name");
+						CEinfocell = new PdfPCell(new Phrase(mUserName.toString()));
+						CEinfocell.setBorder(Rectangle.NO_BORDER);
+						CEinfocell.setHorizontalAlignment(Element.ALIGN_CENTER);
+						tableCEinfo.addCell(CEinfocell);
+					}
+					document.add(tableCEinfo);
 				}
-
 			}
 		} catch (DocumentException e)
 		{
