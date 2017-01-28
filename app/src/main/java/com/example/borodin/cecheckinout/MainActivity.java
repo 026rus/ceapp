@@ -95,8 +95,10 @@ public class MainActivity extends AppCompatActivity
 		String mUserName = preferences.getString(getResources().getString(R.string.pref_saved_name), null);
 		String mPhoneNumber = preferences.getString(getResources().getString(R.string.pref_saved_phone_number), null);
 
+		// if user name was not saved
 		if (mUserName == null)
 		{
+			Utilities.print(TAG, "User name was not saved!");
 			try
 			{
 				Cursor c = getApplication().getContentResolver().query(ContactsContract.Profile.CONTENT_URI, null, null, null, null);
@@ -138,36 +140,34 @@ public class MainActivity extends AppCompatActivity
 			}
 		}
 
-		try
+		// if phone number wos not saved
+		if (mPhoneNumber == null)
 		{
-			TelephonyManager t = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
-			mPhoneNumber = t.getLine1Number();
-			if (mPhoneNumber != null)
+			Utilities.print(TAG, "Phone number was not saved!");
+			try
 			{
-				char code = mPhoneNumber.charAt(0);
-				if (code == '1') mPhoneNumber = String.valueOf(mPhoneNumber).replaceFirst("(\\d{1})(\\d{3})(\\d{3})(\\d+)", "$1($2)-$3-$4");
-				else 			 mPhoneNumber = String.valueOf(mPhoneNumber).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "1($1)-$2-$3");
+				TelephonyManager t = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
+				mPhoneNumber = t.getLine1Number();
+				if (mPhoneNumber != null)
+				{
+					char code = mPhoneNumber.charAt(0);
+					if (code == '1') mPhoneNumber = String.valueOf(mPhoneNumber).replaceFirst("(\\d{1})(\\d{3})(\\d{3})(\\d+)", "$1($2)-$3-$4");
+					else 			 mPhoneNumber = String.valueOf(mPhoneNumber).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "1($1)-$2-$3");
+				}
+			}
+			catch (Exception e)
+			{
+				Utilities.print(TAG, "Can not determine phone number! Sorry");
 			}
 		}
-		catch (Exception e)
-		{
-			Utilities.print(TAG, "Can not determine phone number! Sorry");
-		}
 
+		// Saving the User name and phone nubmer for next time;
 		SharedPreferences.Editor editor = preferences.edit();
-
-		if (mUserName != null)
-		{
-			editor.putString(getResources().getString(R.string.pref_saved_name), mUserName);
-			Utilities.print(TAG, "User name : " + mUserName);
-		}
-		else Utilities.print(TAG, "User name: NULL");
-		if (mPhoneNumber != null)
-		{
-			editor.putString(getResources().getString(R.string.pref_saved_phone_number), mPhoneNumber);
-			Utilities.print(TAG, "User phone number: " + mPhoneNumber);
-		}
-		else Utilities.print(TAG, "Phone number: NULL");
+		editor.putString(getResources().getString(R.string.pref_saved_name), mUserName);
+		Utilities.print(TAG, "User name : " + mUserName);
+		editor.putString(getResources().getString(R.string.pref_saved_phone_number), mPhoneNumber);
+		Utilities.print(TAG, "User phone number: " + mPhoneNumber);
+		editor.commit();
 	}
 
 	private boolean isOnlinecheck()
