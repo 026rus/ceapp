@@ -212,9 +212,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 			// to their values. When their values change, their summaries are
 			// updated to reflect the new value, per the Android Design
 			// guidelines.
-			bindPreferenceSummaryToValue(findPreference("thech_name"));
-			bindPreferenceSummaryToValue(findPreference("thech_phone"));
-			EditTextPreference thech_phoe = (EditTextPreference) findPreference("thech_phone");
+			bindPreferenceSummaryToValue(findPreference(getResources().getString(R.string.pref_saved_name)));
+			bindPreferenceSummaryToValue(findPreference(getResources().getString(R.string.pref_saved_phone_number)));
+			EditTextPreference thech_phoe = (EditTextPreference) findPreference(getResources().getString(R.string.pref_saved_phone_number));
 			EditText tech_phone_textr = thech_phoe.getEditText();
 			tech_phone_textr.setText("Bla Bla Bla");
 			tech_phone_textr.addTextChangedListener(new PhoneNumberFormattingTextWatcher());

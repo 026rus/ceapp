@@ -1,11 +1,15 @@
 package com.example.borodin.cecheckinout;
 
+import android.Manifest;
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
@@ -13,6 +17,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -84,18 +89,53 @@ public class MainActivity extends AppCompatActivity
 	{
 		// TODO: 1/27/2017 On new Android can't ger user nama and phone number.
 		// Becouse of new Android ( 6 ) permission asked on the go so need to work around for user info.
-		String mUserName = null;
-		String mPhoneNumber = null;
-		try
+
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+		String mUserName = preferences.getString(getResources().getString(R.string.pref_saved_name), null);
+		String mPhoneNumber = preferences.getString(getResources().getString(R.string.pref_saved_phone_number), null);
+
+		if (mUserName == null)
 		{
-			Cursor c = getApplication().getContentResolver().query(ContactsContract.Profile.CONTENT_URI, null, null, null, null);
-			c.moveToFirst();
-			mUserName = c.getString(c.getColumnIndex("display_name"));
-			c.close();
-		}
-		catch (Exception e)
-		{
-			Utilities.print(TAG, "Can not determine User name! Sorry");
+			try
+			{
+				Cursor c = getApplication().getContentResolver().query(ContactsContract.Profile.CONTENT_URI, null, null, null, null);
+				c.moveToFirst();
+				mUserName = c.getString(c.getColumnIndex("display_name"));
+				c.close();
+			} catch (Exception e)
+			{
+				Utilities.print(TAG, "Can not determine User name! Sorry");
+			}
+			try
+			{
+				AccountManager manager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+				if (ActivityCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED)
+				{
+					// TODO: Consider calling
+					//    ActivityCompat#requestPermissions
+					// here to request the missing permissions, and then overriding
+					//   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+					//                                          int[] grantResults)
+					// to handle the case where the user grants the permission. See the documentation
+					// for ActivityCompat#requestPermissions for more details.
+					Utilities.print(TAG, "Permissions not granted !");
+				}
+				else
+				{
+					Account[] list = manager.getAccounts();
+					for (int i=0; i< list.length; i++)
+					{
+						Utilities.print(TAG, "\t user name - " + list[i]);
+					}
+				}
+
+			}
+			catch (Exception e)
+			{
+				Utilities.print(TAG, "Cant ger user name ! ");
+				Utilities.print(TAG, e.getMessage());
+			}
 		}
 
 		try
@@ -114,11 +154,20 @@ public class MainActivity extends AppCompatActivity
 			Utilities.print(TAG, "Can not determine phone number! Sorry");
 		}
 
-		if (mPhoneNumber != null && mUserName != null)
+		SharedPreferences.Editor editor = preferences.edit();
+
+		if (mUserName != null)
 		{
+			editor.putString(getResources().getString(R.string.pref_saved_name), mUserName);
 			Utilities.print(TAG, "User name : " + mUserName);
+		}
+		else Utilities.print(TAG, "User name: NULL");
+		if (mPhoneNumber != null)
+		{
+			editor.putString(getResources().getString(R.string.pref_saved_phone_number), mPhoneNumber);
 			Utilities.print(TAG, "User phone number: " + mPhoneNumber);
 		}
+		else Utilities.print(TAG, "Phone number: NULL");
 	}
 
 	private boolean isOnlinecheck()

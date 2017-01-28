@@ -21,6 +21,7 @@
 
 	<string name = "pref_title_display_name">Tech name </string>
 	<string name = "pref_default_display_name">Enter your name </string>
+	<string name = "pref_default_display_phone">Enter your phone number </string>
 
 	<string name = "pref_title_add_friends_to_messages">Add friends to messages</string>
 	<string-array name = "pref_example_list_titles">
@@ -83,4 +84,6 @@
 	<string name = "TheManagerName">MANAGERNAME</string>
 	<string name = "IntentTagProject">project</string>
 	<string name = "IntentTagMessage">message</string>
+	<string name="pref_saved_phone_number">thech_phone</string>
+	<string name="pref_saved_name">thech_name</string>
 </resources>

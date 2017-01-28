@@ -11,24 +11,24 @@
 	<!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
 	<EditTextPreference
 		android:capitalize = "words"
-		android:defaultValue = "@string/pref_default_display_name"
 		android:inputType = "textCapWords"
-		android:key = "thech_name"
+		android:key = "@string/pref_saved_name"
 		android:maxLines = "1"
 		android:selectAllOnFocus = "true"
 		android:singleLine = "true"
 		android:title = "@string/pref_title_display_name"/>
 
 	<EditTextPreference
-		android:defaultValue = "@string/pref_default_display_name"
 		android:inputType = "phone"
-		android:key = "thech_phone"
+		android:key = "@string/pref_saved_phone_number"
 		android:maxLines = "1"
 		android:selectAllOnFocus = "true"
 		android:singleLine = "true"
 		android:title = "@string/pref_title_tech_phone"/>
 
 	<!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
+		android:defaultValue = "@string/pref_default_display_phone"
+		android:defaultValue = "@string/pref_default_display_name"
          dismiss it. -->
 
 </PreferenceScreen>
