@@ -323,7 +323,7 @@ public class CheckInOutActivity extends AppCompatActivity implements OnFileDownl
 	private void sendEmailNoCheckList()
 	{
 		StringBuilder sendmassege = new StringBuilder();
-		sendmassege.append("Progect : " + correntProject.getName() + Utilities.newline);
+		sendmassege.append("Project : " + correntProject.getName() + Utilities.newline);
 		sendmassege.append("Site: " + messege.getSiteStoreNumber() + Utilities.newline);
 
 		messege.setInMasseg(sendmassege.toString());

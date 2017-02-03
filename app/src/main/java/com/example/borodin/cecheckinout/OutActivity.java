@@ -413,7 +413,7 @@ public class OutActivity extends AppCompatActivity
 		final Uri screensig = storeimage(signature);
 		correntMessege.setSignatur(Utilities.getRealPathFromURI(this, screensig));
 		StringBuilder sendmassege = new StringBuilder();
-		sendmassege.append("Progect : " + correntProject.getName() + Utilities.newline);
+		sendmassege.append("Project : " + correntProject.getName() + Utilities.newline);
 		sendmassege.append("Site: " + correntMessege.getSiteStoreNumber() + Utilities.newline);
 
 		int childcount = outLayout.getChildCount();

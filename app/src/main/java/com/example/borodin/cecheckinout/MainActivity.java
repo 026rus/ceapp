@@ -14,7 +14,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
@@ -260,7 +259,7 @@ public class MainActivity extends AppCompatActivity
 	{
 		projectName = (EditText) findViewById(R.id.projectNames);
 		progressBar = (ProgressBar) findViewById(R.id.progressBar);
-		updateProgects();
+		updateProjects();
 	}
 
 	private void setlisteners()
@@ -275,13 +274,13 @@ public class MainActivity extends AppCompatActivity
 		});
 	}
 
-	private void updateProgects()
+	private void updateProjects()
 	{
 		ProjectSQLiteOpenHelper phelper;
 		SQLiteDatabase db;
 		phelper = new ProjectSQLiteOpenHelper(this);
 		db = phelper.getReadableDatabase();
-		projects = phelper.readAllProgects(db);
+		projects = phelper.readAllProjects(db);
 		db.close();
 	}
 
@@ -386,7 +385,7 @@ public class MainActivity extends AppCompatActivity
 		@Override
 		public void dataUpToDate()
 		{
-			updateProgects();
+			updateProjects();
 			isDBcorent();
 		}
 

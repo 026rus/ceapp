@@ -53,7 +53,7 @@ public class ProjectSQLiteOpenHelper extends SQLiteOpenHelper
 		values.put(ProjectDatabaseContract.ProjectColumns.COLUMN_FILES, pr.getFiles());
 		db.insert(ProjectDatabaseContract.ProjectColumns.TABLE_NAME, null, values);
 	}
-	public ArrayList<Project> readAllProgects (SQLiteDatabase db)
+	public ArrayList<Project> readAllProjects(SQLiteDatabase db)
 	{
 		ArrayList<Project> projects = new ArrayList<Project>();
 		Cursor c = db.rawQuery("Select * from " + ProjectDatabaseContract.ProjectColumns.TABLE_NAME, null);

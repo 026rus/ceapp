@@ -79,7 +79,7 @@ public class InActivity extends AppCompatActivity
 	private void sendCheckIn()
 	{
 		StringBuilder sendmassege = new StringBuilder();
-		sendmassege.append("Progect : " + correntProject.getName() + Utilities.newline);
+		sendmassege.append("Project : " + correntProject.getName() + Utilities.newline);
 		sendmassege.append("Site: " + correntMessege.getSiteStoreNumber() + Utilities.newline);
 
 		int childcount = inLayout.getChildCount();
