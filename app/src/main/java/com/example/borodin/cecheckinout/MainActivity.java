@@ -232,10 +232,13 @@ public class MainActivity extends AppCompatActivity
 		switch (id)
 		{
 			case R.id.refresh:
+				// testing send data
+				UpdateServer updateServer = new UpdateServer(this);
+
 				// update db from server
-				Log.d(TAG, "Syncing data manually !");
-				syncSQLiteMySQLDB();
-				item.setIcon(getResources().getDrawable(R.drawable.ic_action_refresh));
+				// Log.d(TAG, "Syncing data manually !");
+				// syncSQLiteMySQLDB();
+				// item.setIcon(getResources().getDrawable(R.drawable.ic_action_refresh));
 				return true;
 			case R.id.download_man:
 				// GpsLocator locator = new GpsLocator();

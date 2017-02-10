@@ -1,16 +1,49 @@
 package com.example.borodin.cecheckinout;
 
-import android.os.AsyncTask;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 /**
  * Created by borodin on 2/10/2017.
  */
 
-public class UpdateServer extends AsyncTask<String, Integer, String>
+public class UpdateServer
 {
-	@Override
-	protected String doInBackground(String... params)
+	// taking from http://stackoverflow.com/questions/38978995/send-http-post-request-to-server-after-internet-re-connect
+	// need to make it work
+	// TODO: 2/10/2017  Send http post request to server after internet re-connect
+	private static final String TAG = "UpdateServer_TEST";
+	private Context that;
+
+	public UpdateServer(Context context)
 	{
-		return null;
+		that = context;
+		SendingDataToServer send = new SendingDataToServer();
+		send.execute(that.getString(R.string.api_ip) + "/" + that.getString(R.string.api_responselog));
+
+		// registerReceiver(connectionListener, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+
 	}
+
+	private BroadcastReceiver connectionListener = new BroadcastReceiver()
+	{
+		@Override
+		public void onReceive(Context context, Intent intent)
+		{
+			NetworkInfo networkInfo = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+			// if ((networkInfo != null && networkInfo.getType() == ConnectivityManager.TYPE_WIFI) & (networkConnectionHandler.isConnected()))
+			// {
+			// 	sendBroadcastMessage(getString(R.string.FORCED_NETWORK_CONNECTION_ESTABLISHED));
+			// 	Utilities.print(TAG, "wifi connection established");
+			// } else
+			// {
+			// 	sendBroadcastMessage(getString(R.string.FORCED_NETWORK_CONNECTION_LOST));
+			// 	Utilities.print(TAG, "no wifi connection");
+			// }
+		}
+	};
 }
