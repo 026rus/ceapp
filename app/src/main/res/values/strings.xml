@@ -1,6 +1,7 @@
 <resources>
 	<string name = "app_name">CE Check In / Out</string>
 	<string name = "ip">70.166.234.42</string>
+	<string name = "api_responselog">/api.php/responselog</string>
 	<string name = "api_getprojects">http://70.166.234.42/_api/getprojects.php</string>
 	<string name = "api_getallquestions">http://70.166.234.42/_api/getallquestions.php</string>
 	<string name = "api_getallinquestions">http://70.166.234.42/_api/getallinquestions.php</string>

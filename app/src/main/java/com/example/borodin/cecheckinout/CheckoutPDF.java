@@ -210,7 +210,7 @@ public class CheckoutPDF
 				}
 			}
 
-			Image img = resizeBitmap(massege.getSignatur(), 100, 100, true);
+			Image img = resizeBitmap(massege.getSignatur(), 200, 100, true);
 			document.add(img);
 
 			// additin photos!
@@ -248,7 +248,7 @@ public class CheckoutPDF
 
 							// Photo for the project
 							Utilities.print(TAG, "Auditing photo: " + photofiles.get(i));
-							Image tempphotoinmg = resizeBitmap(photofiles.get(i), 100, 100, false);
+							Image tempphotoinmg = resizeBitmap(photofiles.get(i), 200, 200, false);
 							//document.add(tempphotoinmg);
 							photocell = new PdfPCell(tempphotoinmg);
 							photocell.setBorder(Rectangle.NO_BORDER);
