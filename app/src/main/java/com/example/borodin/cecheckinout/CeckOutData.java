@@ -28,7 +28,7 @@ public class CeckOutData
 				timeout = "NULL";
 		if (tin != null ) timein = "" + tin.getTime();
 		if (tout != null ) timeout = "" + tout.getTime();
-		string = "[{\"cename\":\"" + cename + "\",\"site\":\"" + site + "\",\"tin\":" + timein + ",\"pid\":15} ]";
+		string = "[{\"cename\":\"" + cename + "\",\"site\":\"" + site + "\",\"tin\":" + timein + ", \"tout\":"+ timeout + ",\"pid\":15} ]";
 
 		return string;
 	}

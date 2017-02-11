@@ -25,12 +25,15 @@ public class SendingDataToServer extends AsyncTask<String, Integer, String>
 	@Override
 	protected String doInBackground(String... params)
 	{
-		int time = (int) (System.currentTimeMillis());
+		int time = (int) (System.currentTimeMillis()/1000);
 		Timestamp t1 = new Timestamp(time);
+		time += 1000;
+		Timestamp t2 = new Timestamp(time);
 
-		Utilities.print(TAG, "Time stemp is:" + time);
+		Utilities.print(TAG, "Time stemp is:" + t1.getTime());
 
-		CeckOutData data = new CeckOutData("CE Test Name", "Test Sete", t1, null);
+		CeckOutData data = new CeckOutData("CE Test Name", "Test Sete", t1, t2);
+		Utilities.print(TAG, "Just msde this one: " + data.getJeson());
 
 		return POST(params[0], data);
 	}
