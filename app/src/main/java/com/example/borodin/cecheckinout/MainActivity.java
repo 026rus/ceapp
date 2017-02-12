@@ -63,11 +63,8 @@ public class MainActivity extends AppCompatActivity
 		ceckOutData.printCeckOutData(TAG);
 		if(ceckOutData.getTin() != null)
 		{
-			Utilities.print(TAG, "CE Already IN !!! ");
-		}
-		else
-		{
-			Utilities.print(TAG, "Not in");
+			// if CE was checked in then just send hem to corect site for check out.
+			gotoOut(ceckOutData);
 		}
 
 		isUptodate = false;
@@ -97,6 +94,27 @@ public class MainActivity extends AppCompatActivity
 		getUserInfo();
 
 		if (isFirstTime()) firstTimeInit();
+	}
+	private void gotoOut(CeckOutData ceckOutData)
+	{
+		Utilities.print(TAG, "CE Already IN !!! ");
+		Intent intent = new Intent(MainActivity.this, CheckInOutActivity.class);
+		p = null;
+		for(int i=0; i< projects.size(); i++)
+		{
+			if(projects.get(i).getId() == ceckOutData.getPid() )
+			{
+				p = projects.get(i);
+				break;
+			}
+		}
+		if (p != null)
+		{
+			intent.putExtra("project", p);
+			intent.putExtra("SITENAME", ceckOutData.getSite());
+			intent.putExtra("IN", true);
+			startActivity(intent);
+		}
 	}
 
 	private void getUserInfo()
@@ -345,6 +363,7 @@ public class MainActivity extends AppCompatActivity
 			{
 				int x = projectchooser.getValue();
 				p = projects.get(x);
+				Utilities.print(TAG, "Project id "+ x );
 				projectName.setText(p.getName());
 				dialog.dismiss();
 				showSiteChooser();
