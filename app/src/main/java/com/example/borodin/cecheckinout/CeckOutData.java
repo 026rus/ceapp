@@ -50,7 +50,7 @@ public class CeckOutData
 		return string;
 	}
 
-	public boolean storeCheckOutData()
+	public boolean storeCeckOutData()
 	{
 		try
 		{
@@ -75,7 +75,7 @@ public class CeckOutData
 		return true;
 	}
 
-	public void readCheckOutData()
+	public void readCeckOutData()
 	{
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 		this.cename = preferences.getString("cename", null);
@@ -87,6 +87,27 @@ public class CeckOutData
 		if (timeout > 0 ) this.tout	= new Timestamp(timeout);
 		else this.tout = null;
 		this.pid 	= preferences.getInt("pid", 0);
+	}
+	public boolean deleteCechOutData()
+	{
+		try
+		{
+			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.remove("cename");
+			editor.remove("site");
+			editor.remove("tin");
+			editor.remove("tout");
+			editor.remove("pid");
+			editor.apply();
+		}
+		catch (Exception e)
+		{
+			Utilities.print(TAG, "Fail to save data: " + e.getMessage());
+			return false;
+		}
+		return true;
+
 	}
 
 	public String getCename()
