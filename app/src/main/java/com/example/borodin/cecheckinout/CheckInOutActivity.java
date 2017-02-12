@@ -133,10 +133,13 @@ public class CheckInOutActivity extends AppCompatActivity implements OnFileDownl
 		else
 		{
 			// That is just for testing
-			Utilities.print(TAG, "there is " + correntQuestions.size() + " check in questions in this project");
-			for(int i=0; i < correntQuestions.size(); i++)
-				Utilities.print(TAG, "\t" + i + ") " + correntQuestions.get(i).getQuestionType() + " - " + correntQuestions.get(i).getQestion());
+			// Utilities.print(TAG, "there is " + correntQuestions.size() + " check in questions in this project");
+			// for(int i=0; i < correntQuestions.size(); i++)
+			// 	Utilities.print(TAG, "\t" + i + ") " + correntQuestions.get(i).getQuestionType() + " - " + correntQuestions.get(i).getQestion());
 			////////////////////////////////////////////////////////////////////////////////////////
+			CeckOutData ceckOutData = new CeckOutData(this, messege, correntProject);
+			ceckOutData.storeCeckOutData();
+			Utilities.print(TAG, "Saving Check in data to disck");
 
 			Intent intent = new Intent(this, InActivity.class);
 			intent.putExtra(getString(R.string.IntentTagProject), correntProject);

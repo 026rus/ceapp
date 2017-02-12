@@ -41,8 +41,7 @@ public class SendingDataToServer extends AsyncTask<String, Integer, String>
 
 	private String POST(String inURL, CeckOutData mydata)
 	{
-		String result = null;
-
+		String result = "";
 		try
 		{
 			URL url =  new URL(inURL);
@@ -68,10 +67,11 @@ public class SendingDataToServer extends AsyncTask<String, Integer, String>
 			{
 				String line;
 				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				while ((line=br.readLine()) != null)
-				{
-					result += line;
-				}
+				while ((line=br.readLine()) != null) result += line;
+
+				if(br != null)
+					try { br.close(); }
+					catch (Exception e) { Utilities.print(TAG, "Cant send POST :( " + e.getMessage()); }
 			}
 			else
 			{
@@ -79,6 +79,18 @@ public class SendingDataToServer extends AsyncTask<String, Integer, String>
 			}
 			conn.connect();
 
+			// Closing conntction and all streams
+			if(writer != null)
+				try { writer.close(); }
+				catch (Exception e) { Utilities.print(TAG, "Cant send POST :( " + e.getMessage()); }
+			if(os != null)
+				try { os.close(); }
+				catch (Exception e) { Utilities.print(TAG, "Cant send POST :( " + e.getMessage()); }
+
+
+			// delete all the local data after it wos successful sanded
+			Utilities.print(TAG, "Closing connection and deletion all the stored data");
+			data.deleteCechOutData();
 		}
 		catch (Exception e)
 		{

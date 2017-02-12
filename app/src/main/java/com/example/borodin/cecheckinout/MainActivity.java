@@ -30,6 +30,7 @@ import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.security.cert.PKIXCertPathChecker;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -48,12 +49,25 @@ public class MainActivity extends AppCompatActivity
 	private boolean isUptodate;
 	private boolean isOnline;
 	private checkDBForUpdates chekForUp;
+	private CeckOutData ceckOutData;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		Utilities.print(TAG, "Starting APP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		ceckOutData = new CeckOutData(this);
+		ceckOutData.readCeckOutData();
+		if(ceckOutData.getTin() != null)
+		{
+			Utilities.print(TAG, "CE Already IN !!! ");
+		}
+		else
+		{
+			Utilities.print(TAG, "Not in");
+		}
 
 		isUptodate = false;
 		isOnline = isOnlinecheck();
@@ -233,12 +247,12 @@ public class MainActivity extends AppCompatActivity
 		{
 			case R.id.refresh:
 				// testing send data
-				UpdateServer updateServer = new UpdateServer(this);
+				// UpdateServer updateServer = new UpdateServer(this);
 
 				// update db from server
-				// Log.d(TAG, "Syncing data manually !");
-				// syncSQLiteMySQLDB();
-				// item.setIcon(getResources().getDrawable(R.drawable.ic_action_refresh));
+				Log.d(TAG, "Syncing data manually !");
+				syncSQLiteMySQLDB();
+				item.setIcon(getResources().getDrawable(R.drawable.ic_action_refresh));
 				return true;
 			case R.id.download_man:
 				// GpsLocator locator = new GpsLocator();

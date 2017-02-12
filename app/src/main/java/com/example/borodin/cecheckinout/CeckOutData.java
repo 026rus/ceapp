@@ -33,8 +33,16 @@ public class CeckOutData
 
 	public CeckOutData(Context that)
 	{
-		// TODO: 2/12/2017 read all saved data
+		context = that;
+	}
 
+	public CeckOutData(Context that, MessegeInOut messege, Project p)
+	{
+		int time = (int) (System.currentTimeMillis()/1000);
+		cename 	= messege.getTechName();
+		site 	= messege.getSiteStoreNumber();
+		tin		= new Timestamp(time);
+		pid 	= p.getId();
 		context = that;
 	}
 
@@ -50,8 +58,9 @@ public class CeckOutData
 		return string;
 	}
 
-	public boolean storeCeckOutData()
+	public void storeCeckOutData()
 	{
+		// TODO: 2/12/2017 make this seporet thread so it will run faster; 
 		try
 		{
 			Long 	timein = null,
@@ -70,9 +79,7 @@ public class CeckOutData
 		catch (Exception e)
 		{
 			Utilities.print(TAG, "Fail to save data: " + e.getMessage());
-			return false;
 		}
-		return true;
 	}
 
 	public void readCeckOutData()
@@ -100,6 +107,11 @@ public class CeckOutData
 			editor.remove("tout");
 			editor.remove("pid");
 			editor.apply();
+			cename 	= null;
+			site	= null;
+			tin		= null;
+			tout	= null;
+			pid		= 0;
 		}
 		catch (Exception e)
 		{
