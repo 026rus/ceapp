@@ -60,11 +60,13 @@ public class CeckOutData
 
 	public void storeCeckOutData()
 	{
+		Utilities.print(TAG, "Storing CeckOutData!");
+		printCeckOutData(TAG);
 		// TODO: 2/12/2017 make this seporet thread so it will run faster; 
 		try
 		{
-			Long 	timein = null,
-					timeout = null;
+			long 	timein = 0,
+					timeout = 0;
 			if (tin != null ) timein = tin.getTime();
 			if (tout != null ) timeout = tout.getTime();
 			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -81,19 +83,33 @@ public class CeckOutData
 			Utilities.print(TAG, "Fail to save data: " + e.getMessage());
 		}
 	}
+	 public void printCeckOutData(String strTAG)
+	 {
+		 Utilities.print(strTAG, "--------------------------------------------------------------");
+		 Utilities.print(strTAG, "cename = " + cename);
+		 Utilities.print(strTAG, "site   = " + site);
+		 Utilities.print(strTAG, "tin    = " + tin);
+		 Utilities.print(strTAG, "tout   = " + tout);
+		 Utilities.print(strTAG, "pid    = " + pid);
+		 Utilities.print(strTAG, "--------------------------------------------------------------");
+	 }
 
 	public void readCeckOutData()
 	{
+		Utilities.print(TAG, "Start reading data of check in/out pacege.");
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 		this.cename = preferences.getString("cename", null);
+		Utilities.print(TAG, "CE name: " + this.cename);
 		this.site 	= preferences.getString("site", null);
 		Long timein	= preferences.getLong("tin", 0);
+		Utilities.print(TAG, "Time in: " + timein);
 		Long timeout= preferences.getLong("tout", 0);
 		if (timein  > 0 ) this.tin	= new Timestamp(timein);
 		else this.tin = null;
 		if (timeout > 0 ) this.tout	= new Timestamp(timeout);
 		else this.tout = null;
 		this.pid 	= preferences.getInt("pid", 0);
+		printCeckOutData(TAG);
 	}
 	public boolean deleteCechOutData()
 	{

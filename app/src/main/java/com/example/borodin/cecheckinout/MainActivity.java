@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity
 		Utilities.print(TAG, "Starting APP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		ceckOutData = new CeckOutData(this);
 		ceckOutData.readCeckOutData();
+		ceckOutData.printCeckOutData(TAG);
 		if(ceckOutData.getTin() != null)
 		{
 			Utilities.print(TAG, "CE Already IN !!! ");

@@ -137,10 +137,8 @@ public class CheckInOutActivity extends AppCompatActivity implements OnFileDownl
 			// for(int i=0; i < correntQuestions.size(); i++)
 			// 	Utilities.print(TAG, "\t" + i + ") " + correntQuestions.get(i).getQuestionType() + " - " + correntQuestions.get(i).getQestion());
 			////////////////////////////////////////////////////////////////////////////////////////
-			CeckOutData ceckOutData = new CeckOutData(this, messege, correntProject);
-			ceckOutData.storeCeckOutData();
-			Utilities.print(TAG, "Saving Check in data to disck");
 
+			// sending back to maine.
 			Intent intent = new Intent(this, InActivity.class);
 			intent.putExtra(getString(R.string.IntentTagProject), correntProject);
 			intent.putExtra(getString(R.string.IntentTagMessage), messege);
