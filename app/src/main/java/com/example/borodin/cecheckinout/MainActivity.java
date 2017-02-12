@@ -57,16 +57,6 @@ public class MainActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		Utilities.print(TAG, "Starting APP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		ceckOutData = new CeckOutData(this);
-		ceckOutData.readCeckOutData();
-		ceckOutData.printCeckOutData(TAG);
-		if(ceckOutData.getTin() != null)
-		{
-			// if CE was checked in then just send hem to corect site for check out.
-			gotoOut(ceckOutData);
-		}
-
 		isUptodate = false;
 		isOnline = isOnlinecheck();
 		if (!isOnline)
@@ -92,6 +82,16 @@ public class MainActivity extends AppCompatActivity
 		setVew();
 		setlisteners();
 		getUserInfo();
+
+		Utilities.print(TAG, "Starting APP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		ceckOutData = new CeckOutData(this);
+		ceckOutData.readCeckOutData();
+		ceckOutData.printCeckOutData(TAG);
+		if(ceckOutData.getTin() != null)
+		{
+			// if CE was checked in then just send hem to corect site for check out.
+			gotoOut(ceckOutData);
+		}
 
 		if (isFirstTime()) firstTimeInit();
 	}
