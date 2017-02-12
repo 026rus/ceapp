@@ -3,9 +3,10 @@ package com.example.borodin.cecheckinout;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+
+import java.sql.Timestamp;
 
 /**
  * Created by borodin on 2/10/2017.
@@ -22,7 +23,17 @@ public class UpdateServer
 	public UpdateServer(Context context)
 	{
 		that = context;
-		SendingDataToServer send = new SendingDataToServer();
+
+		int time = (int) (System.currentTimeMillis()/1000);
+		Timestamp t1 = new Timestamp(time);
+		time += 1000;
+		Timestamp t2 = new Timestamp(time);
+
+		Utilities.print(TAG, "Time stemp is:" + t1.getTime());
+
+		CeckOutData data = new CeckOutData(context, "CE Test Name", "Test Sete", t1, t2, 15);
+		Utilities.print(TAG, "Just msde this one: " + data.getJeson());
+		SendingDataToServer send = new SendingDataToServer(data);
 		send.execute(that.getString(R.string.api_ip) + "/" + that.getString(R.string.api_responselog));
 
 		// registerReceiver(connectionListener, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));

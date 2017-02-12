@@ -1,17 +1,13 @@
 package com.example.borodin.cecheckinout;
 
 import android.os.AsyncTask;
-import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.Timestamp;
 
 
 /**
@@ -21,20 +17,17 @@ import java.sql.Timestamp;
 public class SendingDataToServer extends AsyncTask<String, Integer, String>
 {
 	private static final String TAG = "SendingDataToServer_TEST";
+	private CeckOutData data;
+
+	public SendingDataToServer(CeckOutData data)
+	{
+		this.data = data;
+	}
 
 	@Override
 	protected String doInBackground(String... params)
 	{
-		int time = (int) (System.currentTimeMillis()/1000);
-		Timestamp t1 = new Timestamp(time);
-		time += 1000;
-		Timestamp t2 = new Timestamp(time);
-
-		Utilities.print(TAG, "Time stemp is:" + t1.getTime());
-
-		CeckOutData data = new CeckOutData("CE Test Name", "Test Sete", t1, t2);
 		Utilities.print(TAG, "Just msde this one: " + data.getJeson());
-
 		return POST(params[0], data);
 	}
 
@@ -93,5 +86,15 @@ public class SendingDataToServer extends AsyncTask<String, Integer, String>
 		}
 
 		return result;
+	}
+
+	public CeckOutData getData()
+	{
+		return data;
+	}
+
+	public void setData(CeckOutData data)
+	{
+		this.data = data;
 	}
 }
