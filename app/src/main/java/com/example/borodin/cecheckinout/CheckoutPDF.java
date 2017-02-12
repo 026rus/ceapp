@@ -217,7 +217,7 @@ public class CheckoutPDF
 			document.newPage();
 			ArrayList<String> photofiles = massege.getFilelist();
 			ArrayList<String> photofilesnames = massege.getFilelistnames();
-			if (photofiles.size() > 0)
+			if (photofiles != null && photofiles.size() > 0)
 			{
 				PdfPTable tablePhotos = new PdfPTable(1);
 				// tablePhotos.setSpacingBefore(100);

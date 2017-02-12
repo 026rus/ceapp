@@ -397,13 +397,18 @@ public class OutActivity extends AppCompatActivity
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putBoolean("ISIN", false);
 		editor.apply();
-		Intent intent = new Intent(this, SignatureActivity.class);
-		intent.putExtra(getString(R.string.TheManagerName), managerName.getText().toString());
-		startActivityForResult(intent, 0);
+		if ( askPermissionWrite() )
+		{
+			Intent intent = new Intent(this, SignatureActivity.class);
+			intent.putExtra(getString(R.string.TheManagerName), managerName.getText().toString());
+			startActivityForResult(intent, 0);
+		}
+
 	}
 
 	private Uri storeimage(Bitmap image)
 	{
+
 		int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 		if (permission != PackageManager.PERMISSION_GRANTED)
 		{
@@ -420,11 +425,28 @@ public class OutActivity extends AppCompatActivity
 		}
 		return null;
 	}
+	private boolean askPermissionWrite()
+	{
+		int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+		if (permission != PackageManager.PERMISSION_GRANTED)
+		{
+			ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
+		}
+		if (permission == PackageManager.PERMISSION_GRANTED)
+		{
+			return true;
+		} else
+		{
+			return false;
+		}
+	}
 
 	private void sendCheckOut(Bitmap signature)
 	{
-		final Uri screensig = storeimage(signature);
+		Uri screensig = storeimage(signature);
+
 		correntMessege.setSignatur(Utilities.getRealPathFromURI(this, screensig));
+
 		StringBuilder sendmassege = new StringBuilder();
 		sendmassege.append("Project : " + correntProject.getName() + Utilities.newline);
 		sendmassege.append("Site: " + correntMessege.getSiteStoreNumber() + Utilities.newline);
