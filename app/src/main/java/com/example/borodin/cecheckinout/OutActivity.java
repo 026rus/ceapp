@@ -396,6 +396,7 @@ public class OutActivity extends AppCompatActivity
 
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putBoolean("ISIN", false);
+		editor.apply();
 		Intent intent = new Intent(this, SignatureActivity.class);
 		intent.putExtra(getString(R.string.TheManagerName), managerName.getText().toString());
 		startActivityForResult(intent, 0);

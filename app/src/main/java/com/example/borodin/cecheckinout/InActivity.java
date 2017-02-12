@@ -82,6 +82,7 @@ public class InActivity extends AppCompatActivity
 		ceckOutData.printCeckOutData(TAG);
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putBoolean("ISIN", true);
+		editor.apply();
 
 		// send email
 		Utilities.print(TAG, "Making email for check in !");

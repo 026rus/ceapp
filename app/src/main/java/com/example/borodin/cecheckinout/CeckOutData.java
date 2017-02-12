@@ -54,8 +54,8 @@ public class CeckOutData
 		String string;
 		String  timein = "NULL",
 				timeout = "NULL";
-		if (tin != null ) timein = "" + tin.getTime();
-		if (tout != null ) timeout = "" + tout.getTime();
+		if (tin != null ) timein = "" +   (tin.getTime() /1000);
+		if (tout != null ) timeout = "" + (tout.getTime()/1000);
 		string = "[{\"cename\":\"" + cename + "\",\"site\":\"" + site + "\",\"tin\":" + timein + ", \"tout\":"+ timeout + ",\"pid\":"+pid + "} ]";
 
 		return string;

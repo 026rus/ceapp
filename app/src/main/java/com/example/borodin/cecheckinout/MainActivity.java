@@ -84,15 +84,19 @@ public class MainActivity extends AppCompatActivity
 		getUserInfo();
 
 		Utilities.print(TAG, "Starting APP !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		ceckOutData = new CeckOutData(this);
-		ceckOutData.readCeckOutData();
-		ceckOutData.printCeckOutData(TAG);
-
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		if(preferences.getBoolean("ISIN", false))
 		{
+			ceckOutData = new CeckOutData(this);
+			ceckOutData.readCeckOutData();
+			ceckOutData.printCeckOutData(TAG);
+
 			// if CE was checked in then just send hem to corect site for check out.
 			gotoOut(ceckOutData);
+		}
+		else
+		{
+			Utilities.print(TAG, "Not In ");
 		}
 
 		if (isFirstTime()) firstTimeInit();
@@ -102,14 +106,15 @@ public class MainActivity extends AppCompatActivity
 		Utilities.print(TAG, "CE Already IN !!! ");
 		Intent intent = new Intent(MainActivity.this, CheckInOutActivity.class);
 		p = null;
-		for(int i=0; i< projects.size(); i++)
-		{
-			if(projects.get(i).getId() == ceckOutData.getPid() )
+		if(projects != null)
+			for(int i=0; i< projects.size(); i++)
 			{
-				p = projects.get(i);
-				break;
+				if(projects.get(i).getId() == ceckOutData.getPid() )
+				{
+					p = projects.get(i);
+					break;
+				}
 			}
-		}
 		if (p != null)
 		{
 			intent.putExtra("project", p);
@@ -224,6 +229,13 @@ public class MainActivity extends AppCompatActivity
 	{
 		// propose update if the local data base is older then one on the server
 		isDBcorent();
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		if(preferences.getBoolean("ISIN", false))
+		{
+			ceckOutData = new CeckOutData(this);
+			ceckOutData.readCeckOutData();
+			gotoOut(ceckOutData);
+		}
 		super.onResume();
 	}
 
