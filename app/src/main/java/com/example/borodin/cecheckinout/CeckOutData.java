@@ -116,6 +116,7 @@ public class CeckOutData
 	}
 	public boolean deleteCechOutData()
 	{
+		Utilities.print(TAG, "deleteCechOutData starting 119");
 		try
 		{
 			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);

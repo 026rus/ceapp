@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.Space;
@@ -384,6 +385,17 @@ public class OutActivity extends AppCompatActivity
 
 	public void onClickOutSend(View v)
 	{
+
+		Utilities.print(TAG, "On Check in Clicked");
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+		CeckOutData ceckOutData = new CeckOutData(this, correntMessege, correntProject);
+		ceckOutData.setCename(preferences.getString("thech_name", ""));
+		ceckOutData.printCeckOutData(TAG);
+		UpdateServer updateServer = new UpdateServer(this, ceckOutData);
+
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putBoolean("ISIN", false);
 		Intent intent = new Intent(this, SignatureActivity.class);
 		intent.putExtra(getString(R.string.TheManagerName), managerName.getText().toString());
 		startActivityForResult(intent, 0);

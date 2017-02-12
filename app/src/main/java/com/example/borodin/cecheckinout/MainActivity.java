@@ -87,7 +87,9 @@ public class MainActivity extends AppCompatActivity
 		ceckOutData = new CeckOutData(this);
 		ceckOutData.readCeckOutData();
 		ceckOutData.printCeckOutData(TAG);
-		if(ceckOutData.getTin() != null)
+
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		if(preferences.getBoolean("ISIN", false))
 		{
 			// if CE was checked in then just send hem to corect site for check out.
 			gotoOut(ceckOutData);
@@ -114,6 +116,10 @@ public class MainActivity extends AppCompatActivity
 			intent.putExtra("SITENAME", ceckOutData.getSite());
 			intent.putExtra("IN", true);
 			startActivity(intent);
+		}
+		else
+		{
+			Utilities.print(TAG, "Projects are empty");
 		}
 	}
 

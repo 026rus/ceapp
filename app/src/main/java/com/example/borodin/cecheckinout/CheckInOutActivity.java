@@ -100,6 +100,13 @@ public class CheckInOutActivity extends AppCompatActivity implements OnFileDownl
 		if (out_phon != null)
 			out_phon.setText(correntProject.getPhone());
 
+		boolean isin = getIntent().getBooleanExtra("IN", false);
+		if (isin)
+		{
+			Utilities.print(TAG, "IN co the button is inactive");
+			Button b = (Button) findViewById(R.id.btn_checkIn);
+			b.setEnabled(false);
+		}
 	}
 
 	private void getherInfo()

@@ -3,7 +3,9 @@ package com.example.borodin.cecheckinout;
 import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -71,10 +73,15 @@ public class InActivity extends AppCompatActivity
 	public void onClickInSend(View v)
 	{
 		Utilities.print(TAG, "On Check in Clicked");
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
 		CeckOutData ceckOutData = new CeckOutData(this, correntMessege, correntProject);
 		ceckOutData.storeCeckOutData();
+		ceckOutData.setCename(preferences.getString("thech_name", ""));
 		Utilities.print(TAG, "Saving Check in data to disck");
 		ceckOutData.printCeckOutData(TAG);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putBoolean("ISIN", true);
 
 		// send email
 		Utilities.print(TAG, "Making email for check in !");
