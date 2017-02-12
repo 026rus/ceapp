@@ -38,12 +38,15 @@ public class CeckOutData
 
 	public CeckOutData(Context that, MessegeInOut messege, Project p)
 	{
-		int time = (int) (System.currentTimeMillis()/1000);
+		Utilities.print(TAG, "CeckOutData Contractor from massage");
+		long time = System.currentTimeMillis();
+		Utilities.print(TAG, "Millis: " + time);
 		cename 	= messege.getTechName();
 		site 	= messege.getSiteStoreNumber();
 		tin		= new Timestamp(time);
 		pid 	= p.getId();
 		context = that;
+		printCeckOutData(TAG);
 	}
 
 	public String getJeson()
@@ -62,7 +65,7 @@ public class CeckOutData
 	{
 		Utilities.print(TAG, "Storing CeckOutData!");
 		printCeckOutData(TAG);
-		// TODO: 2/12/2017 make this seporet thread so it will run faster; 
+		// TODO: 2/12/2017 make this seporet thread so it will run faster;
 		try
 		{
 			long 	timein = 0,

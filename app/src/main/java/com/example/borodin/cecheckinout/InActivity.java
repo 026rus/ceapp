@@ -70,6 +70,12 @@ public class InActivity extends AppCompatActivity
 
 	public void onClickInSend(View v)
 	{
+		Utilities.print(TAG, "On Check in Clicked");
+		CeckOutData ceckOutData = new CeckOutData(this, correntMessege, correntProject);
+		ceckOutData.storeCeckOutData();
+		Utilities.print(TAG, "Saving Check in data to disck");
+		ceckOutData.printCeckOutData(TAG);
+
 		// send email
 		Utilities.print(TAG, "Making email for check in !");
 		sendCheckIn();
@@ -172,11 +178,6 @@ public class InActivity extends AppCompatActivity
 
 	public void onClickInCancel(View v)
 	{
-		CeckOutData ceckOutData = new CeckOutData(this, correntMessege, correntProject);
-		ceckOutData.storeCeckOutData();
-		Utilities.print(TAG, "Saving Check in data to disck");
-		ceckOutData.printCeckOutData(TAG);
-
 		// TODO: 12/16/2016 Find out may be need to send to privios Activity instde ?
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
