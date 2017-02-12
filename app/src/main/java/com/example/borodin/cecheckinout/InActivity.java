@@ -21,6 +21,7 @@ import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class InActivity extends AppCompatActivity
@@ -76,6 +77,7 @@ public class InActivity extends AppCompatActivity
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 		CeckOutData ceckOutData = new CeckOutData(this, correntMessege, correntProject);
+		ceckOutData.setTin(new Timestamp(System.currentTimeMillis()));
 		ceckOutData.storeCeckOutData();
 		ceckOutData.setCename(preferences.getString("thech_name", ""));
 		Utilities.print(TAG, "Saving Check in data to disck");

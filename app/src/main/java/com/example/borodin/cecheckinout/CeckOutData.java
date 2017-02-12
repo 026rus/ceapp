@@ -39,11 +39,8 @@ public class CeckOutData
 	public CeckOutData(Context that, MessegeInOut messege, Project p)
 	{
 		Utilities.print(TAG, "CeckOutData Contractor from massage");
-		long time = System.currentTimeMillis();
-		Utilities.print(TAG, "Millis: " + time);
 		cename 	= messege.getTechName();
 		site 	= messege.getSiteStoreNumber();
-		tin		= new Timestamp(time);
 		pid 	= p.getId();
 		context = that;
 		printCeckOutData(TAG);
@@ -57,6 +54,7 @@ public class CeckOutData
 		if (tin != null ) timein = "" +   (tin.getTime() /1000);
 		if (tout != null ) timeout = "" + (tout.getTime()/1000);
 		string = "[{\"cename\":\"" + cename + "\",\"site\":\"" + site + "\",\"tin\":" + timein + ", \"tout\":"+ timeout + ",\"pid\":"+pid + "} ]";
+		Utilities.print(TAG, "sending string: " + string);
 
 		return string;
 	}
@@ -117,6 +115,7 @@ public class CeckOutData
 	public boolean deleteCechOutData()
 	{
 		Utilities.print(TAG, "deleteCechOutData starting 119");
+		printCeckOutData(TAG);
 		try
 		{
 			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -135,7 +134,7 @@ public class CeckOutData
 		}
 		catch (Exception e)
 		{
-			Utilities.print(TAG, "Fail to save data: " + e.getMessage());
+			Utilities.print(TAG, "Fail to delete data: " + e.getMessage());
 			return false;
 		}
 		return true;

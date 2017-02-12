@@ -389,10 +389,11 @@ public class OutActivity extends AppCompatActivity
 		Utilities.print(TAG, "On Check in Clicked");
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-		CeckOutData ceckOutData = new CeckOutData(this, correntMessege, correntProject);
+		CeckOutData ceckOutData = new CeckOutData(this);
+		ceckOutData.readCeckOutData();
 		ceckOutData.setCename(preferences.getString("thech_name", ""));
 		ceckOutData.printCeckOutData(TAG);
-		UpdateServer updateServer = new UpdateServer(this, ceckOutData);
+		new UpdateServer(this, ceckOutData);
 
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putBoolean("ISIN", false);
