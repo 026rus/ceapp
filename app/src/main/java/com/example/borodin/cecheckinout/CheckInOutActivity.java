@@ -31,6 +31,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.File;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class CheckInOutActivity extends AppCompatActivity implements OnFileDownloaded
@@ -135,7 +136,23 @@ public class CheckInOutActivity extends AppCompatActivity implements OnFileDownl
 			Toast.makeText(this, "Problem with project Sorry ", Toast.LENGTH_SHORT).show();
 
 		if (correntQuestions == null || correntQuestions.isEmpty())
+		{
+			Utilities.print(TAG, "There is no QUESTIONS");
+			CeckOutData ceckOutData = new CeckOutData(this, messege, correntProject);
+			ceckOutData.setTin(new Timestamp(System.currentTimeMillis()));
+
+			Utilities.print(TAG, "Saving Check in data to disck from CheckInOutActivity");
+			ceckOutData.printCeckOutData(TAG);
+			ceckOutData.storeCeckOutData();
+
+			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+			SharedPreferences.Editor editor = preferences.edit();
+
+			Utilities.print(TAG, "Storing that hi is IN!");
+			editor.putBoolean("ISIN", true);
+			editor.apply();
 			sendEmailNoCheckList();
+		}
 
 		else
 		{

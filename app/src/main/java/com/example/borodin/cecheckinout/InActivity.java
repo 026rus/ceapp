@@ -78,9 +78,9 @@ public class InActivity extends AppCompatActivity
 
 		CeckOutData ceckOutData = new CeckOutData(this, correntMessege, correntProject);
 		ceckOutData.setTin(new Timestamp(System.currentTimeMillis()));
-		ceckOutData.storeCeckOutData();
 		ceckOutData.setCename(preferences.getString("thech_name", ""));
 		Utilities.print(TAG, "Saving Check in data to disck");
+		ceckOutData.storeCeckOutData();
 		ceckOutData.printCeckOutData(TAG);
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putBoolean("ISIN", true);
