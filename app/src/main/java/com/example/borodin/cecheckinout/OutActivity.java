@@ -37,6 +37,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class OutActivity extends AppCompatActivity
@@ -391,7 +392,18 @@ public class OutActivity extends AppCompatActivity
 
 		CeckOutData ceckOutData = new CeckOutData(this);
 		ceckOutData.readCeckOutData();
-		ceckOutData.setCename(preferences.getString("thech_name", ""));
+		if (ceckOutData.getPid() == 0)
+		{
+			Utilities.print(TAG, "Project id is 0 - " + ceckOutData.getPid());
+			Utilities.print(TAG, "Corrent Project is" + correntProject.getId());
+			ceckOutData.setPid(correntProject.getId());
+		}
+		if (ceckOutData.getSite() == null || ceckOutData.getSite().isEmpty())
+				ceckOutData.setSite(correntMessege.getSiteStoreNumber());
+		if (ceckOutData.getCename() == null || ceckOutData.getCename().isEmpty())
+			ceckOutData.setCename(preferences.getString("thech_name", ""));
+
+		ceckOutData.setTout(new Timestamp(System.currentTimeMillis()) );
 		ceckOutData.printCeckOutData(TAG);
 		new UpdateServer(this, ceckOutData);
 

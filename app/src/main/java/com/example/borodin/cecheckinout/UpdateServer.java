@@ -23,7 +23,6 @@ public class UpdateServer
 	public UpdateServer(Context context, CeckOutData data)
 	{
 		that = context;
-		data.setTout(new Timestamp(System.currentTimeMillis()) );
 
 		Utilities.print(TAG, "Just msde this one: " + data.getJeson());
 		SendingDataToServer send = new SendingDataToServer(data);
