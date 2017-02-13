@@ -266,6 +266,12 @@ public class MainActivity extends AppCompatActivity
 		Utilities.print(TAG, "First Time Run");
 		editor.apply();
 		syncSQLiteMySQLDB();
+
+		// TODO: 2/12/2017 set some way to ask user for name and number if cant find it 
+		// ask for User name and phone number
+		Intent intent = new Intent(this, SettingsActivity.class);
+		intent.putExtra("GENERAL", true);
+		startActivity(intent);
 	}
 
 	@Override

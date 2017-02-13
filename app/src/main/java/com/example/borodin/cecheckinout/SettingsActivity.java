@@ -38,6 +38,7 @@ import java.util.List;
  */
 public class SettingsActivity extends AppCompatPreferenceActivity
 {
+	private static final String TAG = "SettingsActivity_TEST";
 	/**
 	 * A preference value change listener that updates the preference's summary
 	 * to reflect its new value.
@@ -135,7 +136,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		Utilities.print(TAG, "Starting setings");
+		boolean t = getIntent().getBooleanExtra("GENERAL", false);
+		if (t)
+			Utilities.print(TAG, "Come frome first time");
+		else
+			Utilities.print(TAG, "Not first time");
 		setupActionBar();
+
 	}
 
 	/**
