@@ -166,7 +166,11 @@ public class CheckoutPDF
 							Utilities.print(TAG, "ii = " + ii + " mm = " + mm);
 							if (ii == MessegeInOut.ISCHEKET)
 							{
-								cell1 = new PdfPCell(Image.getInstance(getImgFromDrawable(R.drawable.ic_action_check_true, 20, 20)));
+								// this one with the thumb up
+								//cell1 = new PdfPCell(Image.getInstance(getImgFromDrawable(R.drawable.ic_action_check_true, 20, 20)));
+								// just a check mark
+								//cell1 = new PdfPCell(Image.getInstance(getImgFromDrawable(R.drawable.ic_action_check_true_1, 20, 20)));
+								cell1 = new PdfPCell(Image.getInstance(getImgFromDrawable(R.drawable.ic_action_check_true_2, 20, 20)));
 								cell2 = new PdfPCell(new Phrase(mm));
 								cell1.setBorder(Rectangle.BOTTOM);
 								cell2.setBorder(Rectangle.BOTTOM);
@@ -174,7 +178,10 @@ public class CheckoutPDF
 								table.addCell(cell2);
 							} else if (ii == MessegeInOut.ISNOTCHEKET)
 							{
-								cell1 = new PdfPCell(Image.getInstance(getImgFromDrawable(R.drawable.ic_action_check_false, 20, 20)));
+								// this one with the thumb up
+								//cell1 = new PdfPCell(Image.getInstance(getImgFromDrawable(R.drawable.ic_action_check_false, 20, 20)));
+								// cell1 = new PdfPCell(Image.getInstance(getImgFromDrawable(R.drawable.ic_action_check_false_1, 20, 20)));
+								cell1 = new PdfPCell(Image.getInstance(getImgFromDrawable(R.drawable.ic_action_check_false_2, 20, 20)));
 								cell2 = new PdfPCell(new Phrase(mm));
 								cell1.setBorder(Rectangle.BOTTOM);
 								cell2.setBorder(Rectangle.BOTTOM);
