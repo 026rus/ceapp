@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package = "com.example.borodin.cecheckinout"
+<manifest package = "com.hpceapp.borodin.cecheckinout"
 		  xmlns:android = "http://schemas.android.com/apk/res/android">
 
 	<uses-permission android:name = "android.permission.ACCESS_NETWORK_STATE"/>
@@ -24,7 +24,7 @@
 		android:supportsRtl = "true"
 		android:theme = "@style/AppTheme">
 		<activity
-			android:name = ".MainActivity"
+			android:name = "com.hpceapp.borodin.cecheckinout.MainActivity"
 			android:launchMode = "singleTask"
 			android:screenOrientation = "portrait">
 			<intent-filter>
@@ -34,23 +34,23 @@
 			</intent-filter>
 		</activity>
 		<activity
-			android:name = ".CheckInOutActivity"
+			android:name = "com.hpceapp.borodin.cecheckinout.CheckInOutActivity"
 			android:screenOrientation = "portrait">
 		</activity>
 		<activity
-			android:name = ".SettingsActivity"
+			android:name = "com.hpceapp.borodin.cecheckinout.SettingsActivity"
 			android:label = "@string/title_activity_settings"
 			android:screenOrientation = "portrait">
 		</activity>
 		<activity
-			android:name = ".OutActivity"
+			android:name = "com.hpceapp.borodin.cecheckinout.OutActivity"
 			android:screenOrientation = "portrait">
 		</activity>
 		<activity
-			android:name = ".SignatureActivity"
+			android:name = "com.hpceapp.borodin.cecheckinout.SignatureActivity"
 			android:screenOrientation = "portrait">
 		</activity>
-		<activity android:name = ".InActivity">
+		<activity android:name = "com.hpceapp.borodin.cecheckinout.InActivity">
 		</activity>
 	</application>
 
